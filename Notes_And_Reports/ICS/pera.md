@@ -57,8 +57,8 @@ PERA is divided into **5 layers**, with layers 0-2 being grouped into one layer 
 
 #### Description
 
-This is the actual materials and non-programmable/passive devices. Physical processes are conducted by passive devices
-onto manufacturing materials. Pretty straightforward.
+This is the actual materials and non-programmable/passive devices. **Physical processes are conducted by passive devices
+onto manufacturing materials**. Pretty straightforward.
 
 #### Vulnerabilities
 
@@ -88,7 +88,9 @@ This is the simplest layer in terms of vulnerabilities, as nearly everything is 
 
 #### Description
 
-Intelligent devices sense and manipulate the physical processes in Layer 0. This is where we get sensors, actuators, Programmable Logic Controllers (PLCs), Computer Numerical Control (CNC), and Programmable Automation Controllers (PACs)- networked or hard-wired. In industrial systems, it is necessary that these devices work fast and reliably to keep up with the demands of production for as long as possible. 
+**Intelligent devices sense and manipulate the physical processes in Layer 0**. This is where we get sensors, actuators, Programmable Logic Controllers (PLCs), Computer Numerical Control (CNC), and Programmable Automation Controllers (PACs)- networked or hard-wired. In industrial systems, it is necessary that these devices work fast and reliably to keep up with the demands of production for as long as possible. 
+
+With intelligent devices, if the devices are not directly networked and/or connected to supervisory control, **Remote Terminal Units (RTUs)** can act as the middleware to connect sensors and actuators to supervisory control. It implements programming and automation.
 
 - Since intelligent OT devices are typically custom built to fit manufacuturing needs and are often not designed to be replaced, regularly updating them is often not feasible- which exposes these devices to vulnerabilities that don't get frequently patched.
 
@@ -114,6 +116,15 @@ Intelligent devices sense and manipulate the physical processes in Layer 0. This
 
 #### Description
 
+This is the fun part- we get to start puting the hardware into software. Control systems are the real-time control that leverages intelligent devices to alter physical processes. It supervises, monitors, and controls industrial processes. At this point we get **Human Machine Interfacing (HMI)**, where physical displays visualize and control data in ICS.
+
+An important concept in control systems is **Distributed Control Systems (DCS)**. This is control that is geographically distributed across processes and interfaces with controllers and networks. The goals of DCS are as follows:
+1. Convey different control capacities onto subsystems by rapidly transporting correspondences.
+2. Computerize industrial processes by coordinating control techniques.
+3. Organize the entire industrial process as a system.
+
+Last but not least, we get the Queen of ICS- **Supervisory Control and Data Acquisition (SCADA)** software! SCADA controls machines and processes with high level computerized systems. It's essentailly a type of DCS. It handles real-time control logic via setpoint changes, monitoring, and setting process commands.
+
 #### Vulnerabilities
 
 - **Insecure Protocols** – Integrity/Confidentiality - Are SCADA protocols being used that don't have encryption and authentication?
@@ -131,6 +142,17 @@ Intelligent devices sense and manipulate the physical processes in Layer 0. This
 ### Layer 3: Manufacturing Operations Systems
 
 #### Description
+
+Manufacturing operations systems are the **middleware between enterprise control and industrial supervisory control**. Its goals are to manage production workflows, organize data, and assure production reliability. 
+
+Manufacturing operation systems rely on different tools and concepts to efficicently maintain data flows between OT systems and IT systems by collecting operations intelligence via integrating data sources to determine Key Performance Indicators (KPIs) and alarming systems. Oftentimes manufacturing operations systems will be integrated within either Layer 2 or Layer 4 software to reduce technical oversight, though dedicated software can be found for inidvidual operations. 
+
+Here are a few of the important manufacturing operation system concepts:
+
+- **Batch Management** keeps track of each individual production batch. It traces each batch and evaluates quality, resource allocation, and stocking accuracy. When ICS produces in batches, getting real-time input on the effectiveness of production becomes incredibly useful in tracking software.
+- **Manufacturing Operations Management Systems (MOMS)** are systems that manage end-to-end productution. They manage quality, complicance, production management, performance, and use HMI systems for supervisory control.
+- **Manufacturing Execution Systems (MES)** document the process of how raw materials beecome finished goods and can do real time monitoring of production elements. Whereas MOMS are focused on KPI optimization, MES is more focused on alarming and control.
+- **Historian Software** is quite important. It is the time-serfies databasing that keeps track of supervisory control. It's goal is to centalize data to be accessible via APIs, SDKs, and database languages like SQL. It collects, organizes, and labels data while conducting limit monitoring for alarming and validation. It also will aggregate and interpolate data and can allow for manual data entry.
 
 #### Vulnerabilities
 
@@ -194,15 +216,14 @@ As ERP has the most pieces to it, and the most user interaction, vulnerabilities
   - Misleading data can totally alter the decisions made by ERP software.
 - **Privilege Escalation/Mismanaged Roles** - Integrity/Confidentiality - Is there a proper Separation of Duties (SoD) and are user's permissions consistently being cleaned up?
   - If an attacker has proper privileges, they can abuse business logic for their own goals.
-- **Poor Auditing/Logging** - Integrity/Non-Repudiation - If an attacker was to gain access, would they be detected through audits of ERP logs?
-  - This can also include regular enumeration of what accounts and software is being utilized that could reveal sensitive information.
-- **Executive Decision Attacks** - Integrity - Can an attacker alter ERP data?
+- **Poor Auditing/Logging** - Integrity - If an attacker was to gain access, would they be detected through audits of ERP logs?
+  - This can also include regular enumeration of what accounts and software is being utilized that could reveal sensitive information if exposed.
+- **Executive Decision Attacks** - Integrity - Can an attacker alter ERP data to alter automated and human decided executive decisions?
 
 #### Examples
 
 1. **Colonial Pipeline Ransomware Attack (2021)** - Using Colonial Pipeline's inactive virtual private network (VPN) account with an exposed password, hackers were able to gain remote access to their computer systems and encrypt it with ransomware. The ransomware targeting billing and financial systems, but without orders Colonial Pipeline could not conduct pipeline operations. Colonial Pipeline had to pay 4.4 million USD to return to operations. This was a faliure in supply-chain trust (VPN account exposure), poor auditing, and proper backup creation that resulted in a violation of availability and integrity.
 2. **Ukranian Power Grid Trojan (2015)** - Utilizing social engineering campaigns, Russia's Sandoworm Team was able to infect Ukranian Power Grid enterprise computers with the DoS BlackEnergy trojan via Microsoft Word's macros settings. This trojan disconnected the infected computers with the control system by blocking control and reporting messages, gained lateral movement through user accounts and network information, and exfiltrated data. A Killdisk was delivered to devices necessary to system recovery, which wiped their OS and render them unbootable. Through social engineering, data corruption, unauthorized access, and privilege escalation confidentialiy, integrity, and availability were violated.
-3. ** ()** -
 
 #### Mitigations
 
@@ -227,6 +248,7 @@ As we can see here, the effective layers of control in industrial systems also h
 ## Conclusion
 
 -
+
 
 
 

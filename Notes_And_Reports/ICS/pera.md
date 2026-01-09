@@ -1,7 +1,7 @@
 # Purdue Enterprise Reference Architecture (PERA)
 
-> This high-level report focuses on understanding PERA, breaking down related tools used within EA,
-> and analyzing the cybersecurity implications of said topics.
+> This high-level report focuses on understanding PERA, IT/OT, breaking down related tools used within EA,
+> industrial control levels, and analyzing the cybersecurity implications of said topics.
 
 ## Table of Contents
 
@@ -13,15 +13,14 @@
   - [Layer 2: Control Systems](#layer-2-control-systems)
   - [Layer 3: Manufacturing Operations Systems](#layer-3-manufacturing-operations-systems)
   - [Layer 4: Business Logistics](#layer-4-business-logistics)
+- [Manufacturing Control Levels](#manufacturing-control-levels)
 - [Security Implications](#security-implications)
 - [Conclusion](#conclusion)
 
 ## Introduction
 
-The **Purdue Enterprise Reference Architecture** is a common model used to describe the control processes within **Enterprise Architecture**.
-This model is a useful tool to understand the data and systems utilized within enterprises, and how enterprises work to optimize goal-metrics.
-Additionally, this model allows for understanding how end-users and vendors can integrate applications. From a security angle, it helps to
-break down the different attack vectors within industrial control systems (ICS) and operational technology (OT) by separating concerns into PERA layers.
+- The **Purdue Enterprise Reference Architecture** is a common model used to describe the control processes within **Enterprise Architecture**. This model is a useful tool to understand the data and systems utilized within enterprises, and how enterprises work to optimize goal-metrics. Additionally, this model allows for understanding how end-users and vendors can integrate applications. 
+- From a security angle, it helps to break down the different attack vectors within industrial control systems (ICS) and operational technology (OT) by separating concerns into PERA layers.
 
 ## Enterprise Architecture
 
@@ -65,11 +64,12 @@ onto manufacturing materials. Pretty straightforward.
 
 This is the simplest layer in terms of vulnerabilities, as nearly everything is physical.
 
-- **Supply-Chain Trust** - Availability/Integrity - Are the materials and machines being acquired trustworthy and quality?
+- **Supply-Chain Trust** - Availability/Integrity - Are the materials and machines being acquired trustworthy and high-quality?
 - **Unauthorized Access/Espionage** - Integrity/Confidentiality - Are individuals with access to the manufacturing floors authorized and trustable?
 - **Physical Sabotage** - Availability/Integrity - Can the physical processes be manipulated to do unintended things?
 - **Environmental Exposure** - Availability - Is the plant/manufacturing site secure against environmental disasters?
 - **Effective Physical Processes** - Availability - Is the plant/manufacturing site designed well?
+- **Process Degradation** - Integrity - Is machinery up-to-date and functioning optimally?
 
 #### Examples
 
@@ -81,13 +81,34 @@ This is the simplest layer in terms of vulnerabilities, as nearly everything is 
 
 #### Description
 
-This is where things actually start getting fun. Intelligent devices sense and manipulate the physical processes in Layer 0.
+Intelligent devices sense and manipulate the physical processes in Layer 0. This is where we get sensors, actuators, Programmable Logic Controllers (PLCs), Computer Numerical Control (CNC), and Programmable Automation Controllers (PACs)- networked or hard-wired. In industrial systems, it is necessary that these devices work fast and reliably to keep up with the demands of production for as long as possible. 
+
+- Since intelligent OT devices are typically custom built to fit manufacuturing needs and are often not designed to be replaced, regularly updating them is often not feasible- which exposes these devices to vulnerabilities that don't get frequently patched.
 
 #### Vulnerabilities
+
+- **Supply-Chain Trust** - Availability/Integrity/Confidentiality - Are the OT devices trustworthy and high-quality?
+  - This also can include OT devices being used on production floors despite them having known vulnerabilities.
+- **Unauthorized Access/Espionage** - Integrity/Confidentiality - Are individuals with access to the manufacturing floors authorized and trustable?
+- **Side-Channel Attacks** - Integrity/Confidentiality - Are side-channels (power usage, EM emissions) revealing sensitive information about operation?
+- **Device Hijacking** - Availability/Integrity - Are the OT devices vulnurable to exploits that can disrupt processes?
+  - This includes outdated firmware vulnerabilities, network attacks, or hardware attacks.
+- **Insecure Protocols** - Integrity/Confidentiality - Are SCADA protocols being used that don't have encryption and authentication?
+
+#### Examples
 
 ### Layer 2: Control Systems
 
 #### Description
+
+#### Vulnerabilities
+
+- **Insecure Protocols** – Integrity/Confidentiality - Are SCADA protocols being used that don't have encryption and authentication?
+- **Unauthorized Access/Espionage** - Integrity/Confidentiality - Are individuals with access to the manufacturing floors authorized and trustable?
+- **Configuration Errors** - Integrity/Availability - Are control parameters misconfigured in a way that could result in incorrect operation?
+- **Patch Management Deficiency** - Availability/Integrity: Industrial control software often remains unpatched for years.
+
+#### Examples
 
 ### Layer 3: Manufacturing Operations Systems
 
@@ -95,12 +116,17 @@ This is where things actually start getting fun. Intelligent devices sense and m
 
 #### Vulnerabilities
 
+#### Examples
+
 ### Layer 4: Business Logistics
 
 #### Description
 
-Business logistics is all about how a business is using its resources. The decisions made in business logistics
-occur over the scale of years, months, and weeks. Typically, business logistics use **Enterprise Resource Planning (ERP)**,
+Business logistics is all about how a business is using its resources. The decisions made in business logistics occur over the 
+scale of years, months, and weeks. This layer is super cool because it **converges Operation Technology (OT) with Information Technology (IT)**. 
+Business logistsics essentially looks to maximize industrial operation efficiency by using enterprise information.
+
+Typically, business logistics use **Enterprise Resource Planning (ERP)**,
 or something similar. ERP is a model that organizes material use, shipping & inventory, and the basic plant production schedule-
 all while planning to meet future business objectives.
 
@@ -124,9 +150,9 @@ Business logistic concerns are grouped into modules following ERP. A few ERP mod
 
 #### Connections to other Layers
 
-Business logistics is unique as it seems quite removed from the actual "ICS part" of OT technology. But, the logistics of the business 
-have direct effect on the decisions made within plants/factories. Additionally, ERP system software is still very much is a control system- 
-just with human and financial resources instead of material resources.
+Business logistics is unique in PERA as it seems quite removed from the actual OT aspect of an ICS. But, the logistics of the business 
+have direct effect on the decisions made within plants/factories. Additionally, ERP system software is still very much is an operational control system- 
+just with primarily human and financial resources instead of material and hardware resources.
 
 With that being said, ERP systems vary in how integrated they are with lower levels of PERA. It depends on ERP systems, but there are 3 main integration types:
 
@@ -136,10 +162,25 @@ With that being said, ERP systems vary in how integrated they are with lower lev
 
 #### Vulnerabilities
 
--
--
+As ERP has the most pieces to it, and the most user interaction, vulnerabilities in Layer 4 are both very expansive and have severe implications. If business logic is exploited, the malicious decisions ERP workflows make will seep into the lower layers of produciton.
+
+- **Phishing/Social Engineering** - Confidentiality - Are the employees able to be tricked into exposing credentials, downlading malware, or doing unauthorized ERP workflows?
+- **Database Leaks** - Confidentiality - Is the cloud and database services properly configured?
+- **Unauthorized Access/Espionage** - Integrity/Confidentiality - Are individuals with access to ERP software, communication, and financial accounts authorized and trustable?
+- **Supply-Chain Trust** - Availability/Integrity/Confidentiality - Is the ERP software trustable, up-to-date, only given necessary information, and following proper security standards?
+  - This includes plug-ins, apps, and any other software integration that any sensitive data is given to.
+- **Data Corruption/Sync & Backup Errors** - Availability/Integrity - Is important data accurate, and recoverable from an isolated environment?
+  - If backups are not isolated in the case of ransomware attacks, all data is will be encrypted by the attack.
+  - Misleading data can totally alter the decisions made by ERP software.
+- **Privilege Escalation/Mismanaged Roles** - Integrity/Confidentiality - Is there a proper Separation of Duties (SoD) and are user's permissions consistently being cleaned up?
+  - If an attacker has proper privileges, they can abuse business logic for their own goals.
+- **Poor Auditing/Logging** - Integrity/Non-Repudiation - If an attacker was to gain access, would they be detected through audits of ERP logs?
+- **Executive Decision Attacks** - Integrity - Can an attacker alter ERP data?
 
 #### Examples
+
+
+## Manufacturing Control Levels
 
 
 
@@ -150,3 +191,4 @@ With that being said, ERP systems vary in how integrated they are with lower lev
 ## Conclusion
 
 -
+

@@ -49,7 +49,7 @@ though similar procedures generally chase same goals that EA attempts to achieve
 
 ## PERA Layers
 
-PERA is divided into 5 Layers, with layers 0-2 being grouped into one layer as real-time control, as they are all involved with physical processes.
+PERA is divided into **5 layers**, with layers 0-2 being grouped into one layer as **real-time control**, as they are all involved with physical processes.
 
 ![PERA Diagram from Wikipedia](../assets/PERA_Decision-making_and_control_hierarchy.jpg)
 
@@ -182,7 +182,15 @@ As ERP has the most pieces to it, and the most user interaction, vulnerabilities
 
 ## Manufacturing Control Levels
 
+![Levels of Control](../assets/Functional_levels_of_a_Distributed_Control_System.png)
 
+As we can see here, the effective levels of control in industrial systems also has 5 main levels. The 5 main levels are not a coincedence, as each **level of control coincides with each level of the PERA model**. Lets take a closer look:
+
+0. **Field Level** - Pysical Process - This is the plant, or a control block with an input and output. Raw materials go in, something happens to it, and something comes out of the plant.
+1. **Direct Control** - Intelligent Devices - This is where we get logic controllers, which directly affect the materials in the plant, based on input from supervisory control and the plant's output.
+2. **Plant Supervisory** - Control Systems - Supervisory computers use SCADA software and HMI to program and alter the decisions OT devices make within the system.
+3. **Production Control** - Manufacturing Operating Systems - The coordinating computer works as an in-between to reliably get usable data to the computer center, and adapt the computer center's decisions for the specialized industrial systems.
+4. **Production Scheduling** - Business Logistics - The computer center takes all the data from maufaturing and utilizes business information to make overarching decisions about the entire industrial system.
 
 ## Security Implications
 
@@ -191,4 +199,5 @@ As ERP has the most pieces to it, and the most user interaction, vulnerabilities
 ## Conclusion
 
 -
+
 

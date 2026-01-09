@@ -73,9 +73,16 @@ This is the simplest layer in terms of vulnerabilities, as nearly everything is 
 
 #### Examples
 
-1. **Accelerator Pedal Recall (2010)** - Toyota had to recall 8.5 million vehicles due to defective accelerator pedals supplied by a third-party vendor. This is a faliure in supply-chain trust that violated availability.
+1. **Toyota Accelerator Pedal Recall (2010)** - Toyota had to recall 8.5 million vehicles due to defective accelerator pedals supplied by a third-party vendor. This is a faliure in supply-chain trust that violated availability.
 2. **Coca-Cola Trade Secret Theft (2018)** - Three employees were stealing trade secrets from Coca-Cola with the intent to sell information to a competitor. This is unauthorized access that violated integrity.
 3. **Australian Federal Police v. NTC Company (2010)** - NTC Company discovered that a long term employee at their industrial chemical plant was adding foreign substances to chemicals, which caused products to fail quality control. This is physical sabotage that violated availability.
+
+#### Mitigations
+
+- **Ensuring effective floor design and management** can prevent environmental exposure, ineffective physical processes, and process degredation.
+- **Maintaining legal complicance and good supplier relationship management (SRM)** can prevent faliures in supply-chain trust.
+- ***Ensuring proper manufacturing site security** can prevent unauthorized access and espionage.
+- **Maintaining effective human resources** can prevent unauthorized access and espionage.
 
 ### Layer 1: Intelligent Devices
 
@@ -91,11 +98,17 @@ Intelligent devices sense and manipulate the physical processes in Layer 0. This
   - This also can include OT devices being used on production floors despite them having known vulnerabilities.
 - **Unauthorized Access/Espionage** - Integrity/Confidentiality - Are individuals with access to the manufacturing floors authorized and trustable?
 - **Side-Channel Attacks** - Integrity/Confidentiality - Are side-channels (power usage, EM emissions) revealing sensitive information about operation?
-- **Device Hijacking** - Availability/Integrity - Are the OT devices vulnurable to exploits that can disrupt processes?
-  - This includes outdated firmware vulnerabilities, network attacks, or hardware attacks.
 - **Insecure Protocols** - Integrity/Confidentiality - Are SCADA protocols being used that don't have encryption and authentication?
+- **Device Hijacking** - Availability/Integrity - Are the OT devices vulnurable to exploits that can disrupt processes?
+  - This includes outdated firmware vulnerabilities or hardware attacks.
 
 #### Examples
+
+1. **Trition Malware (2017)** - When russian attackers were able to gain access into an enterprise, they would utilize lateral movement over IT and OT systems to target a vulnerability in Schneider Electronic Triconex safety instrumented system (SIS), which were the devices used to initiate shutdown protocols during emergencies. Trition allowed for complete remote control over the SIS. This is unauthorized access and device hijacking that violtaes availability and integrity.
+2. 
+3.
+
+#### Mitigations
 
 ### Layer 2: Control Systems
 
@@ -105,10 +118,15 @@ Intelligent devices sense and manipulate the physical processes in Layer 0. This
 
 - **Insecure Protocols** – Integrity/Confidentiality - Are SCADA protocols being used that don't have encryption and authentication?
 - **Unauthorized Access/Espionage** - Integrity/Confidentiality - Are individuals with access to the manufacturing floors authorized and trustable?
-- **Configuration Errors** - Integrity/Availability - Are control parameters misconfigured in a way that could result in incorrect operation?
+- **Configuration Errors/Control Logic Manipulation** - Integrity/Availability - Are control parameters misconfigured in a way that could result in incorrect operation?
 - **Patch Management Deficiency** - Availability/Integrity: Industrial control software often remains unpatched for years.
 
 #### Examples
+
+1. **United States v. Martin K. Maxwell (2005)** - Maxell was fired from a manufacturing plant,and in retaliation he hacked into the plant's SCADA systems to delay production lines. This is unauthorized access and control logic manipulation that violated integrity and availability.
+2. 
+
+#### Mitigations
 
 ### Layer 3: Manufacturing Operations Systems
 
@@ -117,6 +135,8 @@ Intelligent devices sense and manipulate the physical processes in Layer 0. This
 #### Vulnerabilities
 
 #### Examples
+
+#### Mitigations
 
 ### Layer 4: Business Logistics
 
@@ -175,16 +195,24 @@ As ERP has the most pieces to it, and the most user interaction, vulnerabilities
 - **Privilege Escalation/Mismanaged Roles** - Integrity/Confidentiality - Is there a proper Separation of Duties (SoD) and are user's permissions consistently being cleaned up?
   - If an attacker has proper privileges, they can abuse business logic for their own goals.
 - **Poor Auditing/Logging** - Integrity/Non-Repudiation - If an attacker was to gain access, would they be detected through audits of ERP logs?
+  - This can also include regular enumeration of what accounts and software is being utilized that could reveal sensitive information.
 - **Executive Decision Attacks** - Integrity - Can an attacker alter ERP data?
 
 #### Examples
 
+1. **Colonial Pipeline Ransomware Attack (2021)** - Using Colonial Pipeline's inactive virtual private network (VPN) account with an exposed password, hackers were able to gain remote access to their computer systems and encrypt it with ransomware. The ransomware targeting billing and financial systems, but without orders Colonial Pipeline could not conduct pipeline operations. Colonial Pipeline had to pay 4.4 million USD to return to operations. This was a faliure in supply-chain trust (VPN account exposure), poor auditing, and proper backup creation that resulted in a violation of availability and integrity.
+2. **Ukranian Power Grid Trojan (2015)** - Utilizing social engineering campaigns, Russia's Sandoworm Team was able to infect Ukranian Power Grid enterprise computers with the DoS BlackEnergy trojan via Microsoft Word's macros settings. This trojan disconnected the infected computers with the control system by blocking control and reporting messages, gained lateral movement through user accounts and network information, and exfiltrated data. A Killdisk was delivered to devices necessary to system recovery, which wiped their OS and render them unbootable. Through social engineering, data corruption, unauthorized access, and privilege escalation confidentialiy, integrity, and availability were violated.
+3. ** ()** -
+
+#### Mitigations
+
+
 
 ## Manufacturing Control Levels
 
-![Levels of Control](../assets/Functional_levels_of_a_Distributed_Control_System.png)
+![Layers of Control](../assets/Functional_levels_of_a_Distributed_Control_System.png)
 
-As we can see here, the effective levels of control in industrial systems also has 5 main levels. The 5 main levels are not a coincedence, as each **level of control coincides with each level of the PERA model**. Lets take a closer look:
+As we can see here, the effective layers of control in industrial systems also has 5 main layers. The 5 main layers are not a coincedence, as each **level of control coincides with each layer of the PERA model**. Lets take a closer look:
 
 0. **Field Level** - Pysical Process - This is the plant, or a control block with an input and output. Raw materials go in, something happens to it, and something comes out of the plant.
 1. **Direct Control** - Intelligent Devices - This is where we get logic controllers, which directly affect the materials in the plant, based on input from supervisory control and the plant's output.
@@ -199,5 +227,6 @@ As we can see here, the effective levels of control in industrial systems also h
 ## Conclusion
 
 -
+
 
 

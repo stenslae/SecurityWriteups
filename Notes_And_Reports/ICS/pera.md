@@ -1,7 +1,6 @@
 # Purdue Enterprise Reference Architecture (PERA)
 
-> This high-level report focuses on understanding PERA, IT/OT, breaking down related tools used within EA, industrial control levels, and analyzing the cybersecurity implications of said topics.
-> For each layer of PERA, I give my personal interpretation of the vulnerabilities, exploit examples, mitigations, and cost-benefit analysis of implementing mitigations.
+> This document focuses on understanding PERA, IT/OT, IOT protocols, breaking down related tools used within EA, industrial control levels, and analyzing the cybersecurity implications of said topics. For each layer of PERA, I give my personal interpretation of the vulnerabilities, examples, mitigations, and cost-benefit analysis.
 
 ## Table of Contents
 
@@ -14,13 +13,15 @@
   - [Layer 3: Manufacturing Operations Systems](#layer-3-manufacturing-operations-systems)
   - [Layer 4: Business Logistics](#layer-4-business-logistics)
 - [Manufacturing Control Levels](#manufacturing-control-levels)
-- [Security Implications](#security-implications)
+- [Security Between Layers](#security-between-layers)
+- [Communication Protocols](#security-between-layers)
 - [Resources](#resources)
 
 ## Introduction
 
-- The **Purdue Enterprise Reference Architecture** is a common model used to describe the control processes within **Enterprise Architecture**. This model is a useful tool to understand the data and systems utilized within enterprises, and how enterprises work to optimize goal-metrics. Additionally, this model allows for understanding how end-users and vendors can integrate applications. 
-- From a security angle, it helps to break down the different attack vectors within industrial control systems (ICS) and operational technology (OT) by separating concerns into PERA layers.
+The **Purdue Enterprise Reference Architecture (PERA)** is a common model used to describe the control processes within **Enterprise Architecture**. This model is a useful tool to understand the data and systems utilized within enterprises, and how enterprises work to optimize goal-metrics. Additionally, this model allows for understanding how end-users and vendors can integrate applications. 
+
+> From a security angle, PERA helps break down individual concerns within operational technology (OT), which allows for more focused analysis of threats on industrial control systems (ICS).
 
 ## Enterprise Architecture
 
@@ -74,53 +75,62 @@ This is the simplest layer in terms of vulnerabilities, as nearly everything is 
 
 #### Examples
 
-1. **Toyota Accelerator Pedal Recall (2010)** - Toyota had to recall 8.5 million vehicles due to defective accelerator pedals supplied by a third-party vendor. This is a faliure in supply-chain trust that violated availability.
+1. **Toyota Accelerator Pedal Recall (2010)** - Toyota had to recall 8.5 million vehicles due to defective accelerator pedals supplied by a third-party vendor. This is a failure in supply-chain trust that violated availability.
 2. **Coca-Cola Trade Secret Theft (2018)** - Three employees were stealing trade secrets from Coca-Cola with the intent to sell information to a competitor. This is unauthorized access that violated integrity.
 3. **Australian Federal Police v. NTC Company (2010)** - NTC Company discovered that a long term employee at their industrial chemical plant was adding foreign substances to chemicals, which caused products to fail quality control. This is physical sabotage that violated availability.
 
 #### Mitigations
 
 - **Ensuring effective floor design and management** can prevent environmental explosure. For example OSHA compliance and having backup power mitigate ineffective physical processes, and process degredation.
-- **Maintaining legal complicance and good supplier relationship management (SRM)** can prevent faliures in supply-chain trust.
-- ***Ensuring proper manufacturing site security** can prevent unauthorized access and espionage.
+- **Maintaining legal complicance and good supplier relationship management (SRM)** can prevent failures in supply-chain trust.
+- **Ensuring proper manufacturing site security** can prevent unauthorized access and espionage.
 - **Maintaining effective human resources** can prevent unauthorized access and espionage.
 
 Though these mitigations require higher levels of managerial insight and documentation in industrial design and planning, a majority of these mitigations pay off beyond just protecting against vulnerabilities, and can ensure repeatability and undrstanding of what resources are being utilized. Additionally, these mitigations allow for the enterprise to follow legal compliance and prevent availability issues. 
 
-The most difficult one to implement would be within human resources- as oftentimes motivations for espionage are financial. That implies a human resources mitigations could include increasing payroll and benefits, which often is not feasible for enterprises. Other human resources improvements could be in improved conflict resolution and employee happiness, but the human factor is nevery fully controllable.
+The most difficult one to implement would be within human resources- as oftentimes motivations for espionage are financial. That implies a human resources mitigations could include increasing payroll and benefits, which often is not feasible for enterprises. Other human resources improvements could be in improved conflict resolution and employee happiness, but the human factor is never fully controllable.
 
 ### Layer 1: Intelligent Devices
 
 #### Description
 
-**Intelligent devices sense and manipulate the physical processes in Layer 0**. This is where we get sensors, actuators, Programmable Logic Controllers (PLCs), Computer Numerical Control (CNC), and Programmable Automation Controllers (PACs)- networked or hard-wired. In industrial systems, it is necessary that these devices work fast and reliably to keep up with the demands of production for as long as possible. 
+**Intelligent devices sense and manipulate the physical processes in Layer 0**. This is where we get sensors, actuators, Remote Telemetry Units (RTUs), Programmable Logic Controllers (PLCs), Computer Numerical Control (CNC), and Programmable Automation Controllers (PACs)- networked or hard-wired. In industrial systems, it is necessary that these devices work fast and reliably to keep up with the demands of production for as long as possible. 
 
-With intelligent devices, if the devices are not directly networked and/or connected to supervisory control, **Remote Terminal Units (RTUs)** can act as the "middleware" to connect sensors and actuators to supervisory control. It implements programming and automation.
+With intelligent devices, if sensors and actuators are not directly networked and/or connected to supervisory control, RTUs and controllers can act as the "middleware" to connect sensors and actuators to supervisory control.
 
-- Since intelligent OT devices are typically custom built to fit manufacuturing needs and are often not designed to be replaced, regularly updating them is often not feasible- which exposes these devices to vulnerabilities that don't get frequently patched.
+Since intelligent OT devices are typically custom built to fit manufacuturing needs and are often not designed to be replaced, regularly updating them is often not feasible- which exposes these devices to vulnerabilities that don't get frequently patched.
 
 #### Vulnerabilities
 
 - **Supply-Chain Trust** - Availability/Integrity/Confidentiality - Are the OT devices trustworthy and high-quality?
   - This also can include OT devices being used on production floors despite them having known vulnerabilities.
-  - Another important note here is faliure tolerance. OT devices should be very reliable.
+  - Another important note here is failure tolerance. OT devices should be very reliable.
 - **Unauthorized Access/Espionage** - Integrity/Confidentiality - Are individuals with access to the manufacturing floors authorized and trustable?
-- **Side-Channel Attacks** - Integrity/Confidentiality - Are side-channels (power usage, EM emissions) revealing sensitive information about operation?
+- **Side-Channel Attacks** - Integrity/Confidentiality - Are side-channels (power usage, EM emissions, etc.) revealing sensitive information about operation?
 - **Insecure Protocols** - Integrity/Confidentiality - Are SCADA protocols being used that don't have encryption and authentication?
 - **Device Hijacking** - Availability/Integrity - Are the OT devices vulnurable to exploits that can disrupt processes?
   - This includes outdated firmware vulnerabilities or hardware attacks from exposed JTAG ports.
 
 #### Examples
 
-1. **Triton Malware (2017)** - When russian attackers were able to gain access into an enterprise, they would utilize lateral movement over IT and OT systems to target a vulnerability in Schneider Electronic Triconex safety instrumented system (SIS), which were the devices used to initiate shutdown protocols during emergencies. Trition allowed for complete remote control over the SIS. This is unauthorized access and device hijacking that violtaes availability and integrity.
-2. 
+1. **Triton Malware (2017)** - When russian attackers were able to gain access into an enterprise, they would utilize lateral movement over IT and OT systems to target a vulnerability in Schneider Electronic Triconex safety instrumented system (SIS), which were the devices used to initiate shutdown protocols during emergencies. Trition allowed for complete remote control over the SIS. This is unauthorized access and device hijacking that violtates availability and integrity.
+2. **Stuxnet Worm (2010)** - The infamous "first" ICS attack was created by Israel and the US, and targeted the Natanz Nuclear Facility in Iran. It was introduced via USB flash drive, where it would infect Windows machines and expand laterally across networks. It utilizes malicious SQL commands and targets PLCs running Siemens Step7 software. Once Step7 software was detected, the rootkit would be installed and it would manipulate the PLC inputs and outputs and alters logs to reduce detectability. In the Natanz Nuclear Facility, it sped up gas-centrifuges fast enough to break them. This is unauthorized access, physical sabotage, supply-chain trust, and device hijacking that violtates availability and integrity.
 
 #### Mitigations
 
 In conjunction with the Layer 0 mitigations, the following mitigations can prevent exploits to intelligent devices:
 
 - **Regular audits of who has access to devices** can prevent unauthorized access and espionage.
-- 
+- **"Locking" devices that should not be frequently programmed, and triggering alarms if they are programmed** can prevent device hijacking.
+- **Isolating important intelligent devices** - whether it's geographically, with different networks, or faraday cages, this can prevent leakage in side channels.
+- **Security features should be consistently updated and sought after** in order to ensure secure protocaols and prevent unauthorized access.
+- **Mobile data exchange with isolated networks should be scanned for anything malicous** in order to ensure supply-chain trust and prevent device hijacking.
+
+Production floor security should be expected, and locking devices that aren't commonly programmed is a simple workaround. On the other hand, the other mitigations can have significant tradeoffs for enterprises. 
+
+Iolating intelligent devices, and verifying everything that crosses that boundary, can be resource intensive. Security checks take time, labor, and money. Machine learning speeds up these processes, but still requires specialized labor to integrate security into ICS trust boundaries. 
+
+There is typically a massive amount of intelligent devices within ICS, so adding security features requires significant oversight and device management. Implementing feasible ways to add security updates (such as OTA updates) can introduce new attack surfaces.
 
 ### Layer 2: Control Systems
 
@@ -133,7 +143,7 @@ An important concept in control systems is **Distributed Control Systems (DCS)**
 2. Computerize industrial processes by coordinating control techniques.
 3. Organize the entire industrial process as a system.
 
-Last but not least, we get the Queen of ICS- **Supervisory Control and Data Acquisition (SCADA)** software! SCADA controls machines and processes with high level computerized systems. It's essentailly a type of DCS. It handles real-time control logic via setpoint changes, monitoring, and setting process commands.
+Last but not least, we get the Queen of ICS- **Supervisory Control and Data Acquisition (SCADA)** software. SCADA controls machines and processes with high level computerized systems. It's essentailly a DCS, but larger scale and typically less specialized in terms of the software provided. It handles real-time control logic via setpoint changes, monitoring, and setting process commands.
 
 #### Vulnerabilities
 
@@ -142,7 +152,7 @@ Last but not least, we get the Queen of ICS- **Supervisory Control and Data Acqu
 - **System Configuration Consistency** - Availability/Integrity - Are systems documented and configured within specified parameters, and will unauthorized changes outside the parameters detected?
 - **Unauthorized Access/Espionage** - Integrity/Confidentiality - Are individuals with access to the control software authorized and trustable?
 - **Supply-Chain Trust** - Availability/Confidentiality - Is control system software reliable, consistently updated and following proper security standards?
-- **Faliure Tolerance** - Availability - If a control system is compromised, are there repair processes, procedures, alarms, and backups available?
+- **Failure Tolerance** - Availability - If a control system is compromised, are there repair processes, procedures, alarms, and backups available?
 - **Configuration Errors/Control Logic Manipulation** - Integrity/Availability - Are control parameters misconfigured in a way that could result in incorrect operation?
 - **Patch Management Deficiency** - Availability/Integrity - Is software and firmware regularly updated- and is there auditing and regulations on managing updates?
 - **Poor Auditing/Logging** - Integrity/Non-Repuditaion - If an attacker was to gain access, could they be detected through control system alarming and logging?
@@ -237,16 +247,17 @@ As ERP has the most pieces to it, and the most user interaction, vulnerabilities
   - If an attacker has proper privileges, they can abuse business logic for their own goals.
 - **Poor Auditing/Logging** - Integrity/Non-Repuditation - If an attacker was to gain access, would they be detected through audits of ERP logs?
   - This can also include regular enumeration of what accounts and software is being utilized that could reveal sensitive information if exposed.
-- **Executive Decision Attacks** - Integrity - Can an attacker alter ERP data to alter automated and human decided executive decisions?
+- **Executive Decision Attacks** - Integrity - Can an attacker alter ERP data to manipulate automated and human decided executive decisions?
 
 #### Examples
 
-1. **Colonial Pipeline Ransomware Attack (2021)** - Using Colonial Pipeline's inactive virtual private network (VPN) account with an exposed password, hackers were able to gain remote access to their computer systems and encrypt it with ransomware. The ransomware targeting billing and financial systems, but without orders Colonial Pipeline could not conduct pipeline operations. Colonial Pipeline had to pay 4.4 million USD to return to operations. This was a faliure in supply-chain trust (VPN account exposure), poor auditing, and proper backup creation that resulted in a violation of availability and integrity.
+1. **Colonial Pipeline Ransomware Attack (2021)** - Using Colonial Pipeline's inactive virtual private network (VPN) account with an exposed password, hackers were able to gain remote access to their computer systems and encrypt it with ransomware. The ransomware targeting billing and financial systems, but without orders Colonial Pipeline could not conduct pipeline operations. Colonial Pipeline had to pay 4.4 million USD to return to operations. This was a failure in supply-chain trust (VPN account exposure), poor auditing, and proper backup creation that resulted in a violation of availability and integrity.
 2. **Ukranian Power Grid Trojan (2015)** - Utilizing social engineering campaigns, Russia's Sandoworm Team was able to infect Ukranian Power Grid enterprise computers with the DoS BlackEnergy trojan via Microsoft Word's macros settings. This trojan disconnected the infected computers with the control system by blocking control and reporting messages, gained lateral movement through user accounts and network information, and exfiltrated data. A Killdisk was delivered to devices necessary to system recovery, which wiped their OS and render them unbootable. Through social engineering, data corruption, unauthorized access, and privilege escalation confidentialiy, integrity, and availability were violated.
 
 #### Mitigations
 
-
+- **Activity with external facing business activities should be checked for early stage reconissance activity** to prevent phishing and unauthorized access.
+- 
 
 ## Manufacturing Control Levels
 
@@ -260,16 +271,18 @@ As we can see here, the effective layers of control in industrial systems also h
 3. **Production Control** - Manufacturing Operating Systems - The coordinating computer works as an in-between to reliably get usable data to the computer center, and adapt the computer center's decisions for the specialized industrial systems.
 4. **Production Scheduling** - Business Logistics - The computer center takes all the data from maufaturing and utilizes business information to make overarching decisions about the entire industrial system.
 
-## Security Implications
+## Security Between Layers
 
 
+## Communication Protocols
 
 ## Resources
 
 - FBI Cyber Division. "Triton Malware Remains Threat to Global Critical Infrastructure Industrial Control Systems (ICS)". FBI, 2022.
 - MITRE ATT&CK Framework
 - Nankya, Mary, et al. "Securing Industrial Control Systems: Components, Cyber Threats, and Machine Learning-Driven Defense Strategies". MDPI, 2023.
-- NIST SP 800-53 Rev. 5
+- NIST JTF. "Security and Privacy Controls for Information Systems and Organizations". NIST SP 800-53 Rev. 5
+- Souffer, Keith, et al. "Guide to Operational Technology (OT) Security". NIST SP 800-82 Rev. 3
 - NSA. "Operational Technology Assurance Partnership: Smart Controller Security within National Security Systems". NSA, 2025.
 - Shostack, Adam. *Threat Modeling: Designing for Security*. John Wiley & Sons, 2014.
 - Wikipedia.com

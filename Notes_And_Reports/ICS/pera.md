@@ -1,10 +1,9 @@
-# Purdue Enterprise Reference Architecture (PERA)
-
-> This document focuses on understanding PERA, IT/OT, IOT protocols, breaking down related tools used within EA, industrial control levels, and analyzing the cybersecurity implications of said topics. For each layer of PERA, I give my personal interpretation of the vulnerabilities, examples, mitigations, and cost-benefit analysis.
+# ICS Security from a PERA Perspective
 
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [OT and IT](#ot-and-it)
 - [Enterprise Architecture](#enterprise-architecture)
 - [PERA Layers & Vulnerabilities](#pera-layers)
   - [Layer 0: Physical Processes](#layer-0-physical-processes)
@@ -12,22 +11,41 @@
   - [Layer 2: Control Systems](#layer-2-control-systems)
   - [Layer 3: Manufacturing Operations Systems](#layer-3-manufacturing-operations-systems)
   - [Layer 4: Business Logistics](#layer-4-business-logistics)
-- [Manufacturing Control Levels](#manufacturing-control-levels)
+- [Alternate PERA Models](#alternate-pera-models)
+- [Manufacturing Control Layers](#manufacturing-control-layers)
 - [Security Between Layers](#security-between-layers)
-- [Communication Protocols](#security-between-layers)
+- [Industrial Network Security](#industrial-network-security)
+  - [Network Access Control](#network-access-control)
+  - [Communication Protocols](#communication-protocols)
 - [Resources](#resources)
 
 ## Introduction
 
+This document covers key concepts within Industrial Control Systems (ICS) security. It analyzes common frameworks and industry standards to understand enterprise design choices and security practices. Additionally, this covers security concerns for Industrial Internet-of-Things (IIoT) protocols.
+
 The **Purdue Enterprise Reference Architecture (PERA)** is a common model used to describe the control processes within **Enterprise Architecture**. This model is a useful tool to understand the data and systems utilized within enterprises, and how enterprises work to optimize goal-metrics. Additionally, this model allows for understanding how end-users and vendors can integrate applications. 
 
-> From a security angle, PERA helps break down individual concerns within operational technology (OT), which allows for more focused analysis of threats on industrial control systems (ICS).
+> From a security angle, PERA helps break down individual concerns within operational technology (OT), which allows for more focused analysis of threats in ICS.
+
+## OT and IT
+
+### Operational Technology (OT)
+
+Operational technology connects, monitors, and manages an enterprise's industrial operations. OT is purpose-built- modular and more specialized for specific industrial applications. It is built for reliability and availability, as OT is expected that it can run 24/7 without faliure, and last a long time in not ideal conditions.
+
+### Information Technology (IT)
+
+Information technology connects, monitors, and manages an enterprise's business operations. Business operations involve multiple facets of information, such as HR, finances, and emails. IT is made to be replaceable after a few years and typically runs off-the-shelf products such as Windows.
+
+### IT/OT Convergence
+
+A modern trend we are seeing more commonly in enterprises is that IT data can alter OT decisions, and vice-versa. The cross-over between these two scopes is **IT/OT convergence**, and it comes with major advantages and significant security concerns. For example, if an enterprise is getting less orders, it can reduce the quantity manufacturing sites produce- quickly and mostly automated via IT/OT convergence. A large amount of modern exploits targeting ICS starts via IT channels, and propegate into OT, which emphasizes the importance of proper isolation and enforcement boundaries.
 
 ## Enterprise Architecture
 
 Enterprise Architecture (EA) is concerned with the behaviors of a business in processes and roles that create and use business data.
 
-**For example**, imagine that there is a paper-selling office located in Scranton. One day, this office has a safety training,
+**For example**, imagine that there is a paper-selling office located in Scranton. One day, this office has a safety training session,
 and one of the employees starts a fire and destroys the CPR dummy.
 
 ***The following would concern EA:***
@@ -37,10 +55,10 @@ and one of the employees starts a fire and destroys the CPR dummy.
 
 ***The following would not concern EA:***
 - A cat was thrown into the ceiling
-- The CPR dummy's face and imaginary organs were removed
-- This event resulted in a roasting session of the office branch's boss
+- The CPR dummy's face was removed
+- The boss took a day off because he got roasted
 
-EA has a primary goal of developing practices and creating well-defined decisions in how a business makes decisions.
+EA has a primary goal of developing practices and creating well-defined frameworks in how a business makes decisions.
 Primarily, enterprises use these structures to execute its strategies by adjusting how it uses business capabilities, information, process,
 and technology. EA's primary scope is within IT design, ecosystem adaptation, and integration.
 
@@ -53,6 +71,8 @@ though similar procedures generally chase same goals that EA attempts to achieve
 PERA is divided into **5 layers**, with layers 0-2 being grouped into one layer as **real-time control**, as they are all involved with physical processes.
 
 ![PERA Diagram from Wikipedia](../assets/PERA_Decision-making_and_control_hierarchy.jpg)
+
+*Source: "Purdue Enterprise Resource Architecture". Wikipedia.com.*
 
 ### Layer 0: Physical Processes
 
@@ -94,11 +114,11 @@ The most difficult one to implement would be within human resources- as oftentim
 
 #### Description
 
-**Intelligent devices sense and manipulate the physical processes in Layer 0**. This is where we get sensors, actuators, Remote Telemetry Units (RTUs), Programmable Logic Controllers (PLCs), Computer Numerical Control (CNC), and Programmable Automation Controllers (PACs)- networked or hard-wired. In industrial systems, it is necessary that these devices work fast and reliably to keep up with the demands of production for as long as possible. 
+**Intelligent electronic devices (IEDs) sense and manipulate the physical processes in Layer 0**. This is where we get sensors, actuators, Remote Terminal Units (RTUs), Programmable Logic Controllers (PLCs), Computer Numerical Control (CNC), and Programmable Automation Controllers (PACs)- networked or hard-wired. In industrial systems, it is necessary that these devices work fast and reliably to keep up with the demands of production for as long as possible. 
 
 With intelligent devices, if sensors and actuators are not directly networked and/or connected to supervisory control, RTUs and controllers can act as the "middleware" to connect sensors and actuators to supervisory control.
 
-Since intelligent OT devices are typically custom built to fit manufacuturing needs and are often not designed to be replaced, regularly updating them is often not feasible- which exposes these devices to vulnerabilities that don't get frequently patched.
+Since IEDs are typically custom built to fit manufacuturing needs and are often not designed to be replaced, regularly updating them is often not feasible- which exposes these devices to vulnerabilities that don't get frequently patched.
 
 #### Vulnerabilities
 
@@ -122,13 +142,13 @@ In conjunction with the Layer 0 mitigations, the following mitigations can preve
 
 - **Regular audits of who has access to devices** can prevent unauthorized access and espionage.
 - **"Locking" devices that should not be frequently programmed, and triggering alarms if they are programmed** can prevent device hijacking.
-- **Isolating important intelligent devices** - whether it's geographically, with different networks, or faraday cages, this can prevent leakage in side channels.
+- **Air-Gapping or Isolating important intelligent devices** - whether it's geographically, with different networks, or with faraday cages- can prevent leakage in side channels.
 - **Security features should be consistently updated and sought after** in order to ensure secure protocaols and prevent unauthorized access.
 - **Mobile data exchange with isolated networks should be scanned for anything malicous** in order to ensure supply-chain trust and prevent device hijacking.
 
 Production floor security should be expected, and locking devices that aren't commonly programmed is a simple workaround. On the other hand, the other mitigations can have significant tradeoffs for enterprises. 
 
-Iolating intelligent devices, and verifying everything that crosses that boundary, can be resource intensive. Security checks take time, labor, and money. Machine learning speeds up these processes, but still requires specialized labor to integrate security into ICS trust boundaries. 
+Isolating intelligent devices, and verifying everything that crosses that boundary, can be resource intensive. Security checks take time, labor, and money. Machine learning speeds up these processes, but still requires specialized labor to integrate security into ICS trust boundaries. 
 
 There is typically a massive amount of intelligent devices within ICS, so adding security features requires significant oversight and device management. Implementing feasible ways to add security updates (such as OTA updates) can introduce new attack surfaces.
 
@@ -159,7 +179,7 @@ Last but not least, we get the Queen of ICS- **Supervisory Control and Data Acqu
 
 #### Examples
 
-1. **United States v. Martin K. Maxwell (2005)** - Maxell was fired from a manufacturing plant,and in retaliation he hacked into the plant's SCADA systems to delay production lines. This is unauthorized access and control logic manipulation that violated integrity and availability.
+1. **United States v. Martin K. Maxwell (2005)** - Maxell was fired from a manufacturing plant, and in retaliation he hacked into the plant's SCADA systems to delay production lines. This is unauthorized access and control logic manipulation that violated integrity and availability.
 2. 
 
 #### Mitigations
@@ -172,7 +192,7 @@ In conjunction with the mitigations listed for Layer 1 and Layer 0, the folowing
 
 #### Description
 
-Manufacturing operations systems are the **middleware between enterprise control and industrial supervisory control**. Its goals are to manage production workflows, organize data, and assure production reliability. 
+Manufacturing operations systems are the **middleware between enterprise control and industrial supervisory control**. Its goals are to manage production workflows, organize data, and assure production reliability.
 
 Manufacturing operation systems rely on different tools and concepts to efficicently maintain data flows between OT systems and IT systems by collecting operations intelligence via integrating data sources to determine Key Performance Indicators (KPIs) and alarming systems. Oftentimes manufacturing operations systems will be integrated within either Layer 2 or Layer 4 software to reduce technical oversight, though dedicated software can be found for inidvidual operations. 
 
@@ -181,7 +201,7 @@ Here are a few of the important manufacturing operation system concepts:
 - **Batch Management** keeps track of each individual production batch. It traces each batch and evaluates quality, resource allocation, and stocking accuracy. When ICS produces in batches, getting real-time input on the effectiveness of production becomes incredibly useful in tracking software.
 - **Manufacturing Operations Management Systems (MOMS)** are systems that manage end-to-end productution. They manage quality, complicance, production management, performance, and use HMI systems for supervisory control.
 - **Manufacturing Execution Systems (MES)** document the process of how raw materials beecome finished goods and can do real time monitoring of production elements. Whereas MOMS are focused on KPI optimization, MES is more focused on alarming and control.
-- **Historian Software** is quite important. It is the time-serfies databasing that keeps track of supervisory control. It's goal is to centalize data to be accessible via APIs, SDKs, and database languages like SQL. It collects, organizes, and labels data while conducting limit monitoring for alarming and validation. It also will aggregate and interpolate data and can allow for manual data entry.
+- **Historian Software** is quite important. It is the time-series databasing that keeps track of supervisory control. It's goal is to centalize data to be accessible via APIs, SDKs, and SQL. It collects, organizes, and labels data while conducting limit monitoring for alarming and validation. It also will aggregate and interpolate data and can allow for manual data entry.
 
 #### Vulnerabilities
 
@@ -206,6 +226,8 @@ using database management systems. It tracks cash, materials, production capacit
 can share data across varying departments and manage connections with external stakeholders.
 
 ![ERP Modules from Wikipedia](../assets/ERP_modules.png)
+
+*Source: "Enterprise Resource Planning". Wikipedia.com.*
 
 Business logistic concerns are grouped into modules following ERP. A few ERP modules are as follows:
 
@@ -259,7 +281,31 @@ As ERP has the most pieces to it, and the most user interaction, vulnerabilities
 - **Activity with external facing business activities should be checked for early stage reconissance activity** to prevent phishing and unauthorized access.
 - 
 
-## Manufacturing Control Levels
+## Alternate PERA Models
+
+Another model I saw floating around was more focused on modern information flow with cloud based ICS, and is from the SANS ICS410 reference. It is structured as follows:
+
+| Purdue Layer | Description | Examples |
+| :--- | :--- | :--- |
+| Layer 5: Enterprise Networks | Corporate level services that assist<br> business divisions and individual users.<br> Typically located in company data centers. | <ul><li>Active Directory (AD)</li><li>Internal Emails</li><li>Corporate Billing</li><li>Real-Time Backup</li></ul> |
+| Layer 4: Business Networks | IT networks specifically tailored for<br> business users. They provide the enterprise's<br> wide area network (WAN). | <ul><li>IT Workstations</li><li>Phone Systems</li><li>Backup AD</li><li>File & Print Servers</li></ul> |
+| IT/OT Boundary | | |
+| Layer 3: Site-Wide Supervisory | Software that monitors, supervises, and provides<br> operatoinal support for all company regions. | <ul><li>Engineering Workstations</li><li>HMIs</li><li>Data lake systems for analytics</li><li>Historians</li></ul> |
+| Layer 2: Local Supervisory | Observation and managerial oversight<br> for processes. | <ul><li>HMIs</li><li>Historians</li><li>Local Control Room</li></ul> |
+| Layer 1: Local Controllers | Systems designed to automate<br> process regulation. | <ul><li>PLCs</li><li>RTUs</li><li>Control processors</li></ul> |
+| Layer 0: Field Devices | Sensors and actuators that<br> are used on the plant floor. | <ul><li>IEDs</li><li>IIoT Devices</li><li>Communication Gateways</li><li>Sensors & Actuators</li></ul> |
+
+*Source: Pelaez, Manuel Humberto Santander. "Controlling network access to ICS systems". SANS Technology Institute Research Review Journal Diaries, 2023.*
+
+An important distinction with this model is that logic controllers (RTUs, PLCs, etc.) are distinct from field level control in intelligent/IIoT devices.
+
+I like this distinction, as IIoT devices and logic controllers have different concerns can be handled differently by SCADA systems. Modern control systems are trending towards integrating Levels 0 and 1 more comprehensively, but the older ones are out there and important to consider. 
+
+As this model is more focused on separating sites and networks, Layer 3 and Layer 2 are a separated version of the control systems layer in our model above. This helps to emphasize different enforcement boundaries.  It also does not exactly have the manufacturing operations system layer we discussed- it seems as if that in included into supervisory control. Additionally, the business logistics layer is separated by different concerns with this models Layer 4 and Layer 5. 
+
+If anything, with these variation in the PERA model, I would also add a "Layer -1" to include the field itself. While it's not relevant for Pelaez's network access article, as we saw above there are important security concerns when it comes to passive devices and materials in ICS.
+
+## Manufacturing Control Layers
 
 ![Layers of Control](../assets/Functional_levels_of_a_Distributed_Control_System.png)
 
@@ -274,7 +320,12 @@ As we can see here, the effective layers of control in industrial systems also h
 ## Security Between Layers
 
 
-## Communication Protocols
+
+## Industrial Network Security
+
+### Network Access Control
+
+### Communication Protocols
 
 ## Resources
 
@@ -286,3 +337,4 @@ As we can see here, the effective layers of control in industrial systems also h
 - NSA. "Operational Technology Assurance Partnership: Smart Controller Security within National Security Systems". NSA, 2025.
 - Shostack, Adam. *Threat Modeling: Designing for Security*. John Wiley & Sons, 2014.
 - Wikipedia.com
+

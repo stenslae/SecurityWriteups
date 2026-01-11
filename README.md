@@ -2,6 +2,14 @@
 
 This repo stores personal notes/reports I take to document my process in learning cybersecurity related concepts.
 
+## Notes and Reports
+
+This is where I store a digitization of my written notes, restructured into readable reports.
+
+### Industrial Control Systems (ICS)
+
+- **[PERA Model](Notes_And_Reports/ICS/pera.md)** - This report explains how the Purdue Enterprise Reference Architecture (PERA) model works, then maps key vulnerabilities and mitigations at each layer. Additional models, real-life exploits, network access control, and IIoT communication protocols are discussed.
+
 ## Lab Reports
 
 This is where I store smaller-scale security labs reports. If they don't require their own repo, they just go here.
@@ -31,17 +39,3 @@ This is where I store smaller-scale security labs reports. If they don't require
 ### Forensics
 
 - **[Emotet Trojan on Wireshark](Lab_Writeups/Forensics/Wireshark_Trace_Analysis_Emotet_Trojan.pdf)** - A Wireshark trace of an infected machine was analyzed, parts of the Cyber Kill Chain were identified, and a timeline was developed.
-
-## Notes and Reports
-
-This is where I store a digitization of my written notes, restructured into readable reports.
-
-### Industrial Control Systems (ICS)
-
-- **[PERA Model](Notes_And_Reports/ICS/pera.md)** - This is an high level summary of the PERA model, EA, control system software, and its security implications and attack vectors.
-
-### Exploit Development
-
-- Windows Internals
-- Compilers
-- Binaries

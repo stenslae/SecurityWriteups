@@ -129,6 +129,8 @@ Since IEDs are typically custom built to fit manufacturing needs and are often n
 
 1. **Triton Malware (2017)** - When russian attackers were able to gain access into an enterprise, they would utilize lateral movement over IT and OT systems to target a vulnerability in Schneider Electronic Triconex safety instrumented system (SIS), which were the devices used to initiate shutdown protocols during emergencies. Trition allowed for complete remote control over the SIS. This is unauthorized access and device hijacking that violates availability and integrity.
 2. **Stuxnet Worm (2010)** - The infamous "first" ICS attack was created by Israel and the US, and targeted the Natanz Nuclear Facility in Iran. It was introduced via USB flash drive, where it would infect Windows machines and expand laterally across networks. It utilizes malicious SQL commands and targets PLCs running Siemens Step7 software. Once Step7 software was detected, the rootkit would be installed and it would manipulate the PLC inputs and outputs and alters logs to reduce detectability. In the Natanz Nuclear Facility, it sped up gas-centrifuges fast enough to break them. This is unauthorized access, physical sabotage, supply-chain trust, and device hijacking that violates availability and integrity.
+3. **Industroyer (2016)** -
+4. **Pipedream (2022)** -
 
 #### Mitigations
 
@@ -175,7 +177,8 @@ Last but not least, we get the Queen of ICS- **Supervisory Control and Data Acqu
 #### Examples
 
 1. **United States v. Martin K. Maxwell (2005)** - Maxell was fired from a manufacturing plant, and in retaliation he hacked into the plant's SCADA systems to delay production lines. This is unauthorized access and control logic manipulation that violated integrity and availability.
-2. 
+2. **FrostyGoop (2024)** -
+3. **Havex RAT (2013)** - 
 
 #### Mitigations
 
@@ -219,7 +222,11 @@ Here are a few of the important manufacturing operation system concepts:
 
 #### Examples
 
-1. 
+I couldn't find any real life examples that directly targeted Layer 3. Chop chop threat actors, I have a report to write! Kidding, I *guess* it's a good thing I didn't find OT database and historian exploits, but there were probably some supply-chain attacks I missed.
+
+Realistically, a lot of the malware I described in the lower layers do exfiltrate data from this layer, and but this layer is essentailly where IT/OT enforcement lies. It's sort of that checkpoint for OT. So if malware infects Layer 4 and is able to exfiltrate or encrypt data from this layer, it successfully attacked OT systems. Something notable is that most Layer 4 exploit examples I give did not effect this layer, besides NotPetya, BadRabbit and WannnaCry (which I'll discuss below).
+
+But, the most important thing to talk here is **MS17-010, more famously recognized as EternalBlue**. That's what NotPetya, BadRabbit, and WannaCry leveraged to infect industrial systems. This is a Critical Windows Exploit that enabled remote code execution (RCE) in Microsoft Server Message Block 1.0 (SMBv1).
 
 #### Mitigations
 
@@ -298,6 +305,9 @@ As ERP has the most pieces to it, and the most user interaction, vulnerabilities
 
 1. **Colonial Pipeline Ransomware Attack (2021)** - Using Colonial Pipeline's inactive virtual private network (VPN) account with an exposed password, hackers were able to gain remote access to their computer systems and encrypt it with ransomware. The ransomware targeting billing and financial systems, but without orders Colonial Pipeline could not conduct pipeline operations. Colonial Pipeline had to pay 4.4 million USD to return to operations. This was a failure in supply-chain trust (VPN account exposure), poor auditing, and proper backup creation that resulted in a violation of availability and integrity.
 2. **Ukrainian Power Grid Trojan (2015)** - Utilizing social engineering campaigns, Russia's Sandworm Team was able to infect Ukranian Power Grid enterprise computers with the DoS BlackEnergy trojan via Microsoft Word's macros settings. This trojan disconnected the infected computers with the control system by blocking control and reporting messages, gained lateral movement through user accounts and network information, and exfiltrated data. A Killdisk was delivered to devices necessary to system recovery, which wiped their OS and render them unbootable. Through social engineering, data corruption, unauthorized access, and privilege escalation confidentiality, integrity, and availability were violated.
+4. **NotPetya ()** -
+5. **WannaCry ()** -
+6. **BadRabbit ()** -
 
 #### Mitigations
 
@@ -385,7 +395,7 @@ Fundamentally, OT is designed for longevity and reliablility, while exploits can
 
 ## Resources
 
-- *CIP-003-8* & *CIP-005-7*. NERC.
+- *CIP-003-8*. NERC.
 - FBI Cyber Division. "Triton Malware Remains Threat to Global Critical Infrastructure Industrial Control Systems (ICS)". FBI, 2022.
 - MITRE ATT&CK Framework.
 - Nankya, Mary, et al. "Securing Industrial Control Systems: Components, Cyber Threats, and Machine Learning-Driven Defense Strategies". MDPI, 2023.
@@ -394,3 +404,4 @@ Fundamentally, OT is designed for longevity and reliablility, while exploits can
 - NSA. "Operational Technology Assurance Partnership: Smart Controller Security within National Security Systems". NSA, 2025.
 - Shostack, Adam. *Threat Modeling: Designing for Security*. John Wiley & Sons, 2014.
 - Wikipedia.com.
+

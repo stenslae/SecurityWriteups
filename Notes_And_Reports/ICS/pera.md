@@ -1,5 +1,7 @@
 # ICS Security from a PERA Perspective
 
+> Throughout this report, ICS security was recontextualized by breaking security concerns into individual PERA layers. Layer-by-layer coutnermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and security in systems that cannot fail.
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -224,12 +226,10 @@ SIEM, audits, alarms, whitelists, testing, and adding security features as descr
 - **Data validity verification (such as checksums) and secure backups** prevent data corruption in manufacturing operating systems.
 - **Firewalls and IP geo-blocking** prevents unauthorized access and ensures network security.
 - **Implementing jump servers to enforce boundaries** ensures network security.
-- **Choosing secure protocols with 
+- **Choosing secure protocols with authentication and encryption** prevents insecure protocols.
 - **Intrusion Detection Systems (IDS) can be used see if anything crossed the IT/OT trust boundary, or has appeared in OT systems,** which prevents unauthorized access.
 
-> **Note:** Implementing machine learning (ML) into IDSs can be useful. There are two major types of ML: supervised and unsupervised. For known security issues, supervised models are previously trained and are effective in detecting anomolies. Unsupervised learning allows for ML modules to detect unique anomolies without organizing and labeling data. It does this by detecting events and finding patterns in the events, then setting a boundary as to what benign and malicious patterns are.
-
-
+> **Note:** Implementing machine learning (ML) into IDSs can be useful. There are two major types of ML: supervised and unsupervised. Supervised models are previously trained on labeled data, and they are effective in detecting known anomolies. Unsupervised learning allows for ML modules to detect unique anomolies without organizing and labeling data. It does this by detecting events and finding patterns in the events, then setting a boundary as to what benign and malicious patterns are.
 
 ### Layer 4: Business Logistics
 
@@ -378,3 +378,4 @@ Fundamentally, OT is designed for longevity and reliablility, while exploits can
 - NSA. "Operational Technology Assurance Partnership: Smart Controller Security within National Security Systems". NSA, 2025.
 - Shostack, Adam. *Threat Modeling: Designing for Security*. John Wiley & Sons, 2014.
 - Wikipedia.com
+

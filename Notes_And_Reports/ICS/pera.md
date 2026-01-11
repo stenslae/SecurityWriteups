@@ -1,6 +1,6 @@
 # ICS Security from a PERA Perspective
 
-> Throughout this report, ICS security was recontextualized by breaking security concerns into individual PERA layers. Layer-by-layer coutnermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and security in systems that cannot fail.
+> Throughout this report, ICS security was recontextualized by breaking security concerns into individual PERA layers. Layer-by-layer countermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and security in systems that cannot fail.
 
 ## Table of Contents
 
@@ -34,7 +34,7 @@ The **Purdue Enterprise Reference Architecture (PERA)** is a common model used t
 
 ### Operational Technology (OT)
 
-Operational technology connects, monitors, and manages an enterprise's industrial operations. OT is purpose-built- modular and more specialized for specific industrial applications. It is built for reliability and availability, as OT is expected that it can run 24/7 without faliure, and last a long time in not ideal conditions.
+Operational technology connects, monitors, and manages an enterprise's industrial operations. OT is purpose-built- modular and more specialized for specific industrial applications. It is built for reliability and availability, as OT is expected that it can run 24/7 without failure, and last a long time in not ideal conditions.
 
 ### Information Technology (IT)
 
@@ -42,7 +42,7 @@ Information technology connects, monitors, and manages an enterprise's business 
 
 ### IT/OT Convergence
 
-A modern trend we are seeing more commonly in enterprises is that IT data can alter OT decisions, and vice-versa. The cross-over between these two scopes is **IT/OT convergence**, and it comes with major advantages and significant security concerns. For example, if an enterprise is getting less orders, it can reduce the quantity manufacturing sites produce- quickly and mostly automated via IT/OT convergence. A large amount of modern exploits targeting ICS starts via IT channels, and propegate into OT, which emphasizes the importance of proper isolation and enforcement boundaries.
+A modern trend we are seeing more commonly in enterprises is that IT data can alter OT decisions, and vice-versa. The cross-over between these two scopes is **IT/OT convergence**, and it comes with major advantages and significant security concerns. For example, if an enterprise is getting less orders, it can reduce the quantity manufacturing sites produce- quickly and mostly automated via IT/OT convergence. A large amount of modern exploits targeting ICS starts via IT channels, and propagate into OT, which emphasizes the importance of proper isolation and enforcement boundaries.
 
 ## Enterprise Architecture
 
@@ -95,8 +95,8 @@ This is the simplest layer in terms of vulnerabilities, as nearly everything is 
 
 #### Mitigations
 
-- **Ensuring effective floor design and management** are key in building reliable ICS systems. For example, OSHA compliance and having backup power mitigate ineffective physical processes, environmental exposure, and process degredation.
-- **Maintaining legal complicance and good supplier relationship management (SRM)** can prevent failures in supply-chain trust.
+- **Ensuring effective floor design and management** are key in building reliable ICS systems. For example, OSHA compliance and having backup power mitigate ineffective physical processes, environmental exposure, and process degradation.
+- **Maintaining legal compliance and good supplier relationship management (SRM)** can prevent failures in supply-chain trust.
 - **Ensuring proper manufacturing site security** can prevent unauthorized access and espionage.
 - **Maintaining effective human resources** can prevent unauthorized access and espionage.
 
@@ -112,7 +112,7 @@ The most difficult one to implement would be within human resources- as oftentim
 
 With intelligent devices, if sensors and actuators are not directly networked and/or connected to supervisory control, RTUs and controllers can act as the "middleware" to connect sensors and actuators to supervisory control.
 
-Since IEDs are typically custom built to fit manufacuturing needs and are often not designed to be replaced, regularly updating them is often not feasible- which exposes these devices to vulnerabilities that don't get frequently patched.
+Since IEDs are typically custom built to fit manufacturing needs and are often not designed to be replaced, regularly updating them is often not feasible- which exposes these devices to vulnerabilities that don't get frequently patched.
 
 #### Vulnerabilities
 
@@ -122,13 +122,13 @@ Since IEDs are typically custom built to fit manufacuturing needs and are often 
 - **Unauthorized Access/Espionage** - Integrity/Confidentiality - Are individuals with access to the manufacturing floors authorized and trustable?
 - **Side-Channel Attacks** - Integrity/Confidentiality - Are side-channels (power usage, EM emissions, etc.) revealing sensitive information about operation?
 - **Insecure Protocols** - Integrity/Confidentiality - Are SCADA protocols being used that don't have encryption and authentication?
-- **Device Hijacking** - Availability/Integrity - Are the OT devices vulnurable to exploits that can disrupt processes?
+- **Device Hijacking** - Availability/Integrity - Are the OT devices vulnerable to exploits that can disrupt processes?
   - This includes outdated firmware vulnerabilities or hardware attacks from exposed JTAG ports.
 
 #### Examples
 
-1. **Triton Malware (2017)** - When russian attackers were able to gain access into an enterprise, they would utilize lateral movement over IT and OT systems to target a vulnerability in Schneider Electronic Triconex safety instrumented system (SIS), which were the devices used to initiate shutdown protocols during emergencies. Trition allowed for complete remote control over the SIS. This is unauthorized access and device hijacking that violtates availability and integrity.
-2. **Stuxnet Worm (2010)** - The infamous "first" ICS attack was created by Israel and the US, and targeted the Natanz Nuclear Facility in Iran. It was introduced via USB flash drive, where it would infect Windows machines and expand laterally across networks. It utilizes malicious SQL commands and targets PLCs running Siemens Step7 software. Once Step7 software was detected, the rootkit would be installed and it would manipulate the PLC inputs and outputs and alters logs to reduce detectability. In the Natanz Nuclear Facility, it sped up gas-centrifuges fast enough to break them. This is unauthorized access, physical sabotage, supply-chain trust, and device hijacking that violtates availability and integrity.
+1. **Triton Malware (2017)** - When russian attackers were able to gain access into an enterprise, they would utilize lateral movement over IT and OT systems to target a vulnerability in Schneider Electronic Triconex safety instrumented system (SIS), which were the devices used to initiate shutdown protocols during emergencies. Trition allowed for complete remote control over the SIS. This is unauthorized access and device hijacking that violates availability and integrity.
+2. **Stuxnet Worm (2010)** - The infamous "first" ICS attack was created by Israel and the US, and targeted the Natanz Nuclear Facility in Iran. It was introduced via USB flash drive, where it would infect Windows machines and expand laterally across networks. It utilizes malicious SQL commands and targets PLCs running Siemens Step7 software. Once Step7 software was detected, the rootkit would be installed and it would manipulate the PLC inputs and outputs and alters logs to reduce detectability. In the Natanz Nuclear Facility, it sped up gas-centrifuges fast enough to break them. This is unauthorized access, physical sabotage, supply-chain trust, and device hijacking that violates availability and integrity.
 
 #### Mitigations
 
@@ -136,10 +136,10 @@ In conjunction with the Layer 0 mitigations, the following mitigations can preve
 
 - **Regular audits of who has access to devices** can prevent unauthorized access and espionage.
 - **"Locking" devices that should not be frequently programmed, and triggering alarms if they are programmed** can prevent device hijacking.
-- **Air-gapping or isolating important intelligent devices** - whether it's geographically, with different networks, or with faraday cages- can prevent leakage in side channels and unauthorized access.
+- **Air-gapping or isolating important intelligent devices** - whether it's geographically, with different networks, or with Faraday cages- can prevent leakage in side channels and unauthorized access.
 - **Disable unused ports and services** on devices to prevent device hijacking.
 - **Systems should be designed to include security features** in order to ensure secure protocols and prevent unauthorized access.
-- **Mobile data exchange with isolated networks should be scanned for anything malicous** in order to ensure supply-chain trust and prevent device hijacking.
+- **Mobile data exchange with isolated networks should be scanned for anything malicious** in order to ensure supply-chain trust and prevent device hijacking.
 
 Production floor security should be expected, and locking devices that aren't commonly programmed is a simple workaround. On the other hand, the other mitigations can have significant tradeoffs for enterprises. 
 
@@ -151,14 +151,14 @@ There is typically a massive amount of intelligent devices within ICS, so adding
 
 #### Description
 
-This is the fun part- we get to start puting the hardware into software. Control systems are the real-time control that leverages intelligent devices to alter physical processes. It supervises, monitors, and controls industrial processes. At this point we get **Human Machine Interfacing (HMI)**, where physical displays visualize and control data in ICS.
+This is the fun part- we get to start putting the hardware into software. Control systems are the real-time control that leverages intelligent devices to alter physical processes. It supervises, monitors, and controls industrial processes. At this point we get **Human Machine Interfacing (HMI)**, where physical displays visualize and control data in ICS.
 
 An important concept in control systems is **Distributed Control Systems (DCS)**. This is control that is geographically distributed across processes and interfaces with controllers and networks. The goals of DCS are as follows:
 1. Convey different control capacities onto subsystems by rapidly transporting correspondences.
 2. Computerize industrial processes by coordinating control techniques.
 3. Organize the entire industrial process as a system.
 
-Last but not least, we get the Queen of ICS- **Supervisory Control and Data Acquisition (SCADA)** software. SCADA controls machines and processes with high level computerized systems. It's essentailly a DCS, but larger scale and typically less specialized in terms of the software provided. It handles real-time control logic via setpoint changes, monitoring, and setting process commands.
+Last but not least, we get the Queen of ICS- **Supervisory Control and Data Acquisition (SCADA)** software. SCADA controls machines and processes with high level computerized systems. It's essentially a DCS, but larger scale and typically less specialized in terms of the software provided. It handles real-time control logic via setpoint changes, monitoring, and setting process commands.
 
 #### Vulnerabilities
 
@@ -168,9 +168,9 @@ Last but not least, we get the Queen of ICS- **Supervisory Control and Data Acqu
 - **Unauthorized Access/Espionage** - Integrity/Confidentiality - Are individuals with access to the control software authorized and trustable?
 - **Supply-Chain Trust** - Availability/Confidentiality - Is control system software reliable, consistently updated and following proper security standards?
 - **Failure Tolerance** - Availability - If a control system is compromised, are there repair processes, procedures, alarms, and backups available?
-- **Configuration Errors/Control Logic Manipulation** - Integrity/Availability - Are control parameters misconfigured in a way that could result in incorrect operation?
+- **Configuration Errors/Control Logic Manipulation** - Integrity/Availability - Are control parameters misconfiguration in a way that could result in incorrect operation?
 - **Patch Management Deficiency** - Availability/Integrity - Is software and firmware regularly updated- and is there auditing and regulations on managing updates?
-- **Poor Auditing/Logging** - Integrity/Non-Repuditaion - If an attacker was to gain access, could they be detected through control system alarming and logging?
+- **Poor Auditing/Logging** - Integrity/Non-Repudiation - If an attacker was to gain access, could they be detected through control system alarming and logging?
 
 #### Examples
 
@@ -179,12 +179,12 @@ Last but not least, we get the Queen of ICS- **Supervisory Control and Data Acqu
 
 #### Mitigations
 
-In conjunction with the mitigations listed for Layer 1 and Layer 0, the folowing mitigations help to secure control systems:
+In conjunction with the mitigations listed for Layer 1 and Layer 0, the following mitigations help to secure control systems:
 
 - **Properly configured Security Information and Event Management (SIEM)** can prevent poor auditing and logging.
 - **Whitelisting applications for HMI** can prevent unauthorized access and supply-chain compromise by reducing the amount of applications that have access to systems.
 - **Testing updates, new features, and patches before deploying** can prevent any update failures.
-- **Documenting expected usage and configurations, and alarming any unusal settings** can prevent control logic manipulation.
+- **Documenting expected usage and configurations, and alarming any unusual settings** can prevent control logic manipulation.
 - **Security features should be consistently updated and sought after** in order to ensure secure protocols, secure networks, and prevent unauthorized access.
 
 As with Layer 1, implementing SIEM, building whitelists, adding updates, and testing features are all time intensive procedures. While testing features before deployment is just good practice and ensures availability, the others are more exclusive to security and would require extra labor and money.
@@ -195,14 +195,14 @@ As with Layer 1, implementing SIEM, building whitelists, adding updates, and tes
 
 Manufacturing operations systems are the **middleware between enterprise control and industrial supervisory control**. Its goals are to manage production workflows, organize data, and assure production reliability.
 
-Manufacturing operation systems rely on different tools and concepts to efficicently maintain data flows between OT systems and IT systems by collecting operations intelligence via integrating data sources to determine Key Performance Indicators (KPIs) and alarming systems. Oftentimes manufacturing operations systems will be integrated within either Layer 2 or Layer 4 software to reduce technical oversight, though dedicated software can be found for inidvidual operations. 
+Manufacturing operation systems rely on different tools and concepts to efficiently maintain data flows between OT systems and IT systems by collecting operations intelligence via integrating data sources to determine Key Performance Indicators (KPIs) and alarming systems. Oftentimes manufacturing operations systems will be integrated within either Layer 2 or Layer 4 software to reduce technical oversight, though dedicated software can be found for individual operations. 
 
 Here are a few of the important manufacturing operation system concepts:
 
 - **Batch Management** keeps track of each individual production batch. It traces each batch and evaluates quality, resource allocation, and stocking accuracy. When ICS produces in batches, getting real-time input on the effectiveness of production becomes incredibly useful in tracking software.
-- **Manufacturing Operations Management Systems (MOMS)** are systems that manage end-to-end productution. They manage quality, complicance, production management, performance, and use HMI systems for supervisory control.
-- **Manufacturing Execution Systems (MES)** document the process of how raw materials beecome finished goods and can do real time monitoring of production elements. Whereas MOMS are focused on KPI optimization, MES is more focused on alarming and control.
-- **Historian Software** is quite important. It is the time-series databasing that keeps track of supervisory control. It's goal is to centalize data to be accessible via APIs, SDKs, and SQL. It collects, organizes, and labels data while conducting limit monitoring for alarming and validation. It also will aggregate and interpolate data and can allow for manual data entry.
+- **Manufacturing Operations Management Systems (MOMS)** are systems that manage end-to-end production. They manage quality, compliance, production management, performance, and use HMI systems for supervisory control.
+- **Manufacturing Execution Systems (MES)** document the process of how raw materials become finished goods and can do real time monitoring of production elements. Whereas MOMS are focused on KPI optimization, MES is more focused on alarming and control.
+- **Historian Software** is quite important. It is the time-series databasing that keeps track of supervisory control. It's goal is to centralize data to be accessible via APIs, SDKs, and SQL. It collects, organizes, and labels data while conducting limit monitoring for alarming and validation. It also will aggregate and interpolate data and can allow for manual data entry.
 
 #### Vulnerabilities
 
@@ -212,12 +212,14 @@ Here are a few of the important manufacturing operation system concepts:
 - **Network Security** - Integrity/Confidentiality - Are network boundaries properly enforced?
 - **Unauthorized Access/Espionage** - Integrity/Confidentiality - Are individuals with access to the manufacturing software authorized and trustable?
 - **Supply-Chain Trust** - Availability/Confidentiality - Is manufacturing software reliable, consistently updated and following proper security standards?
-- **Failure Tolerance** - Availability - If manufacturing operating systems fail, is there defualts and backup settings in place?
-- **Configuration Errors** - Integrity/Availability - Are MES/MOMS misconfigured in a way that could result in incorrect operation?
+- **Failure Tolerance** - Availability - If manufacturing operating systems fail, is there defaults and backup settings in place?
+- **Configuration Errors** - Integrity/Availability - Are MES/MOMS misconfiguration in a way that could result in incorrect operation?
 - **Patch Management Deficiency** - Availability/Integrity - Is software and firmware regularly updated- and is there auditing and regulations on managing updates?
-- **Poor Auditing/Logging** - Integrity/Non-Repuditaion - If an attacker was to gain access, could they be detected through control system alarming and logging?
+- **Poor Auditing/Logging** - Integrity/Non-Repudiation - If an attacker was to gain access, could they be detected through control system alarming and logging?
 
 #### Examples
+
+1. 
 
 #### Mitigations
 
@@ -229,7 +231,7 @@ SIEM, audits, alarms, whitelists, testing, and adding security features as descr
 - **Choosing secure protocols with authentication and encryption** prevents insecure protocols.
 - **Intrusion Detection Systems (IDS) can be used see if anything crossed the IT/OT trust boundary, or has appeared in OT systems,** which prevents unauthorized access.
 
-> **Note:** Implementing machine learning (ML) into IDSs can be useful. There are two major types of ML: supervised and unsupervised. Supervised models are previously trained on labeled data, and they are effective in detecting known anomolies. Unsupervised learning allows for ML modules to detect unique anomolies without organizing and labeling data. It does this by detecting events and finding patterns in the events, then setting a boundary as to what benign and malicious patterns are.
+> **Note:** Implementing machine learning (ML) into IDSs can be useful. There are two major types of ML: supervised and unsupervised. Supervised models are previously trained on labeled data, and they are effective in detecting known anomalies. Unsupervised learning allows for ML modules to detect unique anomalies without organizing and labeling data. It does this by detecting events and finding patterns in the events, then setting a boundary as to what benign and malicious patterns are.
 
 ### Layer 4: Business Logistics
 
@@ -237,7 +239,7 @@ SIEM, audits, alarms, whitelists, testing, and adding security features as descr
 
 Business logistics is all about how a business is using its resources. The decisions made in business logistics occur over the 
 scale of years, months, and weeks. This layer is super cool because it **converges Operation Technology (OT) with Information Technology (IT)**. 
-Business logistsics essentially looks to maximize industrial operation efficiency by using enterprise information.
+Business logistics essentially looks to maximize industrial operation efficiency by using enterprise information.
 
 Typically, business logistics use **Enterprise Resource Planning (ERP)**,
 or something similar. ERP is a model that organizes material use, shipping & inventory, and the basic plant production schedule-
@@ -257,9 +259,9 @@ Business logistic concerns are grouped into modules following ERP. A few ERP mod
 - **Project Management** - project planning, project costing, time and expense, performance and activity, and resource planning
 - **Financial accounting** - ledger, assets, payment, cash management, and financial consolidation
 - **Management accounting** - budgeting, cost management, billing, and invoicing
-- **Product Lifecycle Management (PLM)** - engineering, bill of materials, work orders, scheduling, capacity, quality control, and maufacturing process
-- **Supply Chain Management (SCM)** - suppy chain planning, supplier scheduling, purchasing, inventory, and warehousing
-- **Human Resources (HR)** - recruiting, training, rostering, payroll, benefits, retirement, diversity, and separation.
+- **Product Lifecycle Management (PLM)** - engineering, bill of materials, work orders, scheduling, capacity, quality control, and manufacturing process
+- **Supply Chain Management (SCM)** - supply chain planning, supplier scheduling, purchasing, inventory, and warehousing
+- **Human Resources (HR)** - recruiting, training, payroll, benefits, retirement, diversity, and separation.
 - **Customer Relationship Management (CRM)** - sales, marketing, commissions, service, customer contact, and call center support
 - **Supplier Relationship Management (SRM)** - suppliers, orders, and payments
 
@@ -277,9 +279,9 @@ With that being said, ERP systems vary in how integrated they are with lower lev
 
 #### Vulnerabilities
 
-As ERP has the most pieces to it, and the most user interaction, vulnerabilities in Layer 4 are both very expansive and have severe implications. If business logic is exploited, the malicious decisions ERP workflows make will seep into the lower layers of produciton.
+As ERP has the most pieces to it, and the most user interaction, vulnerabilities in Layer 4 are both very expansive and have severe implications. If business logic is exploited, the malicious decisions ERP workflows make will seep into the lower layers of production.
 
-- **Phishing/Social Engineering** - Confidentiality - Are the employees able to be tricked into exposing credentials, downlading malware, or doing unauthorized ERP workflows?
+- **Phishing/Social Engineering** - Confidentiality - Are the employees able to be tricked into exposing credentials, downloading malware, or doing unauthorized ERP workflows?
 - **Database Leaks** - Confidentiality - Is the cloud and database services properly configured?
 - **Unauthorized Access/Espionage** - Integrity/Confidentiality - Are individuals with access to ERP software, communication, and financial accounts authorized and trustable?
 - **Supply-Chain Trust** - Availability/Integrity/Confidentiality - Is the ERP software trustable, up-to-date, only given necessary information, and following proper security standards?
@@ -289,18 +291,18 @@ As ERP has the most pieces to it, and the most user interaction, vulnerabilities
   - Misleading data can totally alter the decisions made by ERP software.
 - **Privilege Escalation/Mismanaged Roles** - Integrity/Confidentiality - Is there a proper Separation of Duties (SoD) and are user's permissions consistently being cleaned up?
   - If an attacker has proper privileges, they can abuse business logic for their own goals.
-- **Poor Auditing/Logging** - Integrity/Non-Repuditation - If an attacker was to gain access, would they be detected through audits of ERP logs?
+- **Poor Auditing/Logging** - Integrity/Non-Repudiation - If an attacker was to gain access, would they be detected through audits of ERP logs?
   - This can also include regular enumeration of what accounts and software is being utilized that could reveal sensitive information if exposed.
 - **Executive Decision Attacks** - Integrity - Can an attacker alter ERP data to manipulate automated and human decided executive decisions?
 
 #### Examples
 
 1. **Colonial Pipeline Ransomware Attack (2021)** - Using Colonial Pipeline's inactive virtual private network (VPN) account with an exposed password, hackers were able to gain remote access to their computer systems and encrypt it with ransomware. The ransomware targeting billing and financial systems, but without orders Colonial Pipeline could not conduct pipeline operations. Colonial Pipeline had to pay 4.4 million USD to return to operations. This was a failure in supply-chain trust (VPN account exposure), poor auditing, and proper backup creation that resulted in a violation of availability and integrity.
-2. **Ukranian Power Grid Trojan (2015)** - Utilizing social engineering campaigns, Russia's Sandoworm Team was able to infect Ukranian Power Grid enterprise computers with the DoS BlackEnergy trojan via Microsoft Word's macros settings. This trojan disconnected the infected computers with the control system by blocking control and reporting messages, gained lateral movement through user accounts and network information, and exfiltrated data. A Killdisk was delivered to devices necessary to system recovery, which wiped their OS and render them unbootable. Through social engineering, data corruption, unauthorized access, and privilege escalation confidentialiy, integrity, and availability were violated.
+2. **Ukrainian Power Grid Trojan (2015)** - Utilizing social engineering campaigns, Russia's Sandworm Team was able to infect Ukranian Power Grid enterprise computers with the DoS BlackEnergy trojan via Microsoft Word's macros settings. This trojan disconnected the infected computers with the control system by blocking control and reporting messages, gained lateral movement through user accounts and network information, and exfiltrated data. A Killdisk was delivered to devices necessary to system recovery, which wiped their OS and render them unbootable. Through social engineering, data corruption, unauthorized access, and privilege escalation confidentiality, integrity, and availability were violated.
 
 #### Mitigations
 
-- **Activity with external facing business activities should be checked for early stage reconissance activity** to prevent phishing and unauthorized access.
+- **Activity with external facing business activities should be checked for early stage reconnaissance activity** to prevent phishing and unauthorized access.
 - 
 
 ## Alternate PERA Models
@@ -331,19 +333,17 @@ If anything, with these variation in the PERA model, I would also add a "Layer -
 
 ![Layers of Control](../assets/Functional_levels_of_a_Distributed_Control_System.png)
 
-As we can see here, the effective layers of control in industrial systems also has 5 main layers. The 5 main layers are not a coincedence, as each **level of control coincides with each layer of the PERA model**. Lets take a closer look:
+As we can see here, the effective layers of control in industrial systems also has 5 main layers. The 5 main layers are not a coincidence, as each **level of control coincides with each layer of the PERA model**. Lets take a closer look:
 
-0. **Field Level** - Pysical Process - This is the plant, or a control block with an input and output. Raw materials go in, something happens to it, and something comes out of the plant.
+0. **Field Level** - Physical Process - This is the plant, or a control block with an input and output. Raw materials go in, something happens to it, and something comes out of the plant.
 1. **Direct Control** - Intelligent Devices - This is where we get logic controllers, which directly affect the materials in the plant, based on input from supervisory control and the plant's output.
 2. **Plant Supervisory** - Control Systems - Supervisory computers use SCADA software and HMI to program and alter the decisions OT devices make within the system.
 3. **Production Control** - Manufacturing Operating Systems - The coordinating computer works as an in-between to reliably get usable data to the computer center, and adapt the computer center's decisions for the specialized industrial systems.
-4. **Production Scheduling** - Business Logistics - The computer center takes all the data from maufaturing and utilizes business information to make overarching decisions about the entire industrial system.
+4. **Production Scheduling** - Business Logistics - The computer center takes all the data from manufacturing and utilizes business information to make overarching decisions about the entire industrial system.
 
 ## Security Across Layers
 
-This report focuses on how adding mitigations at each layer of the PERA model in key in securing, and
-
-
+This report focuses on how adding mitigations at each layer of the PERA model in key in securing.
 
 ## Industrial Network Security
 
@@ -360,9 +360,9 @@ An important part of network security is controlling who has access to what. In 
 
 ## Conclusion
 
-Throughout this report, ICS security was recontextualized by breaking security concerns into individual PERA layers. While enforcement boundaries are necessary to secure an ICS, it is not the sole solution. Layer-by-layer coutnermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and adaptability in systems that cannot fail.
+Throughout this report, ICS security was recontextualized by breaking security concerns into individual PERA layers. While enforcement boundaries are necessary to secure an ICS, it is not the sole solution. Layer-by-layer countermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and adaptability in systems that cannot fail.
 
-There are a lot of vulnerabilites and mitigations across all layers of ICS, each with different costs and benefits. An imporant thing to consider when discussing the costs of implementing security features is that total faliure of an ICS is catastrophic. Supply-chain attacks, fraud, and ransomware are common and have resulted in enterprises losing millions of dollars- and, in some cases, has even killed some enterprises. 
+There are a lot of vulnerabilities and mitigations across all layers of ICS, each with different costs and benefits. An important thing to consider when discussing the costs of implementing security features is that total failure of an ICS is catastrophic. Supply-chain attacks, fraud, and ransomware are common and have resulted in enterprises losing millions of dollars- and, in some cases, has even killed some enterprises. 
 
 With that in mind, it might seem logical that mitigations should be implemented, regardless of cost. A lot are. But not all. Many factories have been around for a long time, and in the pre-Stuxnet era of ICS, most people didn't really think of control systems as a realistic target for hackers. Of course, ICS holds some of the most valuable assets for attackers, so enterprises have repeatedly been proven wrong in thinking their security measures were adequate. And this isn't an issue enterprises can fix overnight- enterprises are massive and not designed to restructure at the speed that exploits emerge.
 
@@ -378,4 +378,3 @@ Fundamentally, OT is designed for longevity and reliablility, while exploits can
 - NSA. "Operational Technology Assurance Partnership: Smart Controller Security within National Security Systems". NSA, 2025.
 - Shostack, Adam. *Threat Modeling: Designing for Security*. John Wiley & Sons, 2014.
 - Wikipedia.com
-

@@ -1,6 +1,6 @@
 # ICS Security from a PERA Perspective
 
-> Throughout this report, ICS security was recontextualized by breaking security concerns into individual PERA layers. Layer-by-layer countermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and security in systems that cannot fail.
+> Throughout this report, ICS security was recontextualized by breaking security concerns into individual PERA layers. Layer-by-layer countermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and security in our systems that cannot fail.
 
 ## Table of Contents
 
@@ -292,7 +292,6 @@ As ERP has the most pieces to it, and the most user interaction, vulnerabilities
 - **Privilege Escalation/Mismanaged Roles** - Integrity/Confidentiality - Is there a proper Separation of Duties (SoD) and are user's permissions consistently being cleaned up?
   - If an attacker has proper privileges, they can abuse business logic for their own goals.
 - **Poor Auditing/Logging** - Integrity/Non-Repudiation - If an attacker was to gain access, would they be detected through audits of ERP logs?
-  - This can also include regular enumeration of what accounts and software is being utilized that could reveal sensitive information if exposed.
 - **Executive Decision Attacks** - Integrity - Can an attacker alter ERP data to manipulate automated and human decided executive decisions?
 
 #### Examples
@@ -302,8 +301,14 @@ As ERP has the most pieces to it, and the most user interaction, vulnerabilities
 
 #### Mitigations
 
+This layer is more IT focused, so mitigations will look a bit different. Overlapping mitigations include SIEM, IDS, implementing & testing security features, and secure network strategies.
+
 - **Activity with external facing business activities should be checked for early stage reconnaissance activity** to prevent phishing and unauthorized access.
-- 
+- **Checking supply-chain metadata to ensure legitimate ICS software is being utilized** can prevent faliures in supply-chain trust.
+- **Providing security training to employees** prevents social engineering attacks and unauthorized access.
+- **Clearly separating privileges (SoD) within ERP** can stop privilege escalation.
+- **Isolating the backup server** can prevent data corruption.
+- **Auditing accounts and software that contains privileges or sensitive information** can prevent privilige escalation and database leaks.
 
 ## Alternate PERA Models
 
@@ -333,7 +338,7 @@ If anything, with these variation in the PERA model, I would also add a "Layer -
 
 ![Layers of Control](../assets/Functional_levels_of_a_Distributed_Control_System.png)
 
-As we can see here, the effective layers of control in industrial systems also has 5 main layers. The 5 main layers are not a coincidence, as each **level of control coincides with each layer of the PERA model**. Lets take a closer look:
+As we can see here, the effective layers of control in industrial systems also has 5 main layers. The 5 layers are not a coincidence, as each **level of control coincides with each layer of the PERA model**. Lets take a closer look:
 
 0. **Field Level** - Physical Process - This is the plant, or a control block with an input and output. Raw materials go in, something happens to it, and something comes out of the plant.
 1. **Direct Control** - Intelligent Devices - This is where we get logic controllers, which directly affect the materials in the plant, based on input from supervisory control and the plant's output.
@@ -343,7 +348,17 @@ As we can see here, the effective layers of control in industrial systems also h
 
 ## Security Across Layers
 
-This report focuses on how adding mitigations at each layer of the PERA model in key in securing.
+Now that we've seen each independent layer, how do they all interact with each other? 
+
+As we saw with mitigations offered in each layer, oftentimes those mitigations would also be effective in securing other layers. At the end of the day, if even one layer of an ICS is exposed, the entire system is exposed. Take for example executive decision attacks- if someone gains access to manufacturing operation systems and alters the database information, the ERP system will take those altered KPIs and make misinformed decisions that are dangerous for the business. 
+
+Lastly, here are security practices that secure all the layers:
+- **Complying with security standards, such as IEC 62443 and relevant CIP standards** can prevent a broad amount cyberattacks against an ICS. The standards outlined in these documents are targeted and comprehensive, and are often legally enforced.
+- **Regular pentesting/red-teaming ICS systems** can discover vulnurabilities before attackers do, which gives an enterprise the chance to mitigate before being required to resort to incident response.
+- **Building incident response plans and preparing for failure** can prevent losses in availability in the case of attacks, and ensure cyberattacks are recoverable if they occur.
+- **Designing systems to integrate security features, having documented processes, and providing effective project lifecycles** makes adopting new security features easier for an ICS.
+
+These take security teams and a lot of resources- but that's why cybersecurity is a growing field. Enterprises simply have to plan and budget for security. There are always assets that hackers will try to obtain, which drives innovation that prevents and responds to attacks.
 
 ## Industrial Network Security
 
@@ -351,7 +366,7 @@ This report focuses on how adding mitigations at each layer of the PERA model in
 
 An important part of network security is controlling who has access to what. In modern ICS ecosystems, this is a unique challenge, as IT/OT convergence allows for OT to be interacted with via IT channels. Below is a neat diagram showing the typical layout of enterprises within cloud-based systems:
 
-![SANS ICS410](SANS_ICS410.png)
+![SANS ICS410](../assets/SANS_ICS410.png)
 
 *Source: SANS*
 
@@ -360,7 +375,7 @@ An important part of network security is controlling who has access to what. In 
 
 ## Conclusion
 
-Throughout this report, ICS security was recontextualized by breaking security concerns into individual PERA layers. While enforcement boundaries are necessary to secure an ICS, it is not the sole solution. Layer-by-layer countermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and adaptability in systems that cannot fail.
+Throughout this report, ICS security was recontextualized by breaking security concerns into individual PERA layers. While enforcement boundaries are necessary to secure an ICS, it is not the sole solution. Layer-by-layer countermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and adaptability in our systems that cannot fail.
 
 There are a lot of vulnerabilities and mitigations across all layers of ICS, each with different costs and benefits. An important thing to consider when discussing the costs of implementing security features is that total failure of an ICS is catastrophic. Supply-chain attacks, fraud, and ransomware are common and have resulted in enterprises losing millions of dollars- and, in some cases, has even killed some enterprises. 
 
@@ -370,11 +385,12 @@ Fundamentally, OT is designed for longevity and reliablility, while exploits can
 
 ## Resources
 
+- *CIP-003-8* & *CIP-005-7*. NERC.
 - FBI Cyber Division. "Triton Malware Remains Threat to Global Critical Infrastructure Industrial Control Systems (ICS)". FBI, 2022.
-- MITRE ATT&CK Framework
+- MITRE ATT&CK Framework.
 - Nankya, Mary, et al. "Securing Industrial Control Systems: Components, Cyber Threats, and Machine Learning-Driven Defense Strategies". MDPI, 2023.
 - NIST JTF. "Security and Privacy Controls for Information Systems and Organizations". NIST SP 800-53 Rev. 5
 - Souffer, Keith, et al. "Guide to Operational Technology (OT) Security". NIST SP 800-82 Rev. 3
 - NSA. "Operational Technology Assurance Partnership: Smart Controller Security within National Security Systems". NSA, 2025.
 - Shostack, Adam. *Threat Modeling: Designing for Security*. John Wiley & Sons, 2014.
-- Wikipedia.com
+- Wikipedia.com.

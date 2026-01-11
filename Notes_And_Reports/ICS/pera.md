@@ -13,10 +13,11 @@
   - [Layer 4: Business Logistics](#layer-4-business-logistics)
 - [Alternate PERA Models](#alternate-pera-models)
 - [Manufacturing Control Layers](#manufacturing-control-layers)
-- [Security Between Layers](#security-between-layers)
+- [Security Across Layers](#security-across-layers)
 - [Industrial Network Security](#industrial-network-security)
   - [Network Access Control](#network-access-control)
   - [Communication Protocols](#communication-protocols)
+- [Conclusion](#conclusion)
 - [Resources](#resources)
 
 ## Introduction
@@ -46,17 +47,8 @@ A modern trend we are seeing more commonly in enterprises is that IT data can al
 Enterprise Architecture (EA) is concerned with the behaviors of a business in processes and roles that create and use business data.
 
 **For example**, imagine that there is a paper-selling office located in Scranton. One day, this office has a safety training session,
-and one of the employees starts a fire and destroys the CPR dummy.
-
-***The following would concern EA:***
-- Financial expenditures of any damages
-- Delay in shipping and sales
-- Reductions on employee utilization
-
-***The following would not concern EA:***
-- A cat was thrown into the ceiling
-- The CPR dummy's face was removed
-- The boss took a day off because he got roasted
+and one of the employees starts a fire and destroys the CPR dummy. Financial expenditures, delay in shipping and sales,
+and reductions on employee utilization would concern EA.
 
 EA has a primary goal of developing practices and creating well-defined frameworks in how a business makes decisions.
 Primarily, enterprises use these structures to execute its strategies by adjusting how it uses business capabilities, information, process,
@@ -101,12 +93,12 @@ This is the simplest layer in terms of vulnerabilities, as nearly everything is 
 
 #### Mitigations
 
-- **Ensuring effective floor design and management** can prevent environmental explosure. For example OSHA compliance and having backup power mitigate ineffective physical processes, and process degredation.
+- **Ensuring effective floor design and management** are key in building reliable ICS systems. For example, OSHA compliance and having backup power mitigate ineffective physical processes, environmental exposure, and process degredation.
 - **Maintaining legal complicance and good supplier relationship management (SRM)** can prevent failures in supply-chain trust.
 - **Ensuring proper manufacturing site security** can prevent unauthorized access and espionage.
 - **Maintaining effective human resources** can prevent unauthorized access and espionage.
 
-Though these mitigations require higher levels of managerial insight and documentation in industrial design and planning, a majority of these mitigations pay off beyond just protecting against vulnerabilities, and can ensure repeatability and undrstanding of what resources are being utilized. Additionally, these mitigations allow for the enterprise to follow legal compliance and prevent availability issues. 
+Though these mitigations require higher levels of managerial insight and documentation in industrial design and planning, a majority of these mitigations pay off beyond just protecting against vulnerabilities, and can ensure repeatability and understanding of what resources are being utilized. Additionally, these mitigations allow for the enterprise to follow legal compliance and prevent availability issues. 
 
 The most difficult one to implement would be within human resources- as oftentimes motivations for espionage are financial. That implies a human resources mitigations could include increasing payroll and benefits, which often is not feasible for enterprises. Other human resources improvements could be in improved conflict resolution and employee happiness, but the human factor is never fully controllable.
 
@@ -142,8 +134,9 @@ In conjunction with the Layer 0 mitigations, the following mitigations can preve
 
 - **Regular audits of who has access to devices** can prevent unauthorized access and espionage.
 - **"Locking" devices that should not be frequently programmed, and triggering alarms if they are programmed** can prevent device hijacking.
-- **Air-Gapping or Isolating important intelligent devices** - whether it's geographically, with different networks, or with faraday cages- can prevent leakage in side channels.
-- **Security features should be consistently updated and sought after** in order to ensure secure protocaols and prevent unauthorized access.
+- **Air-gapping or isolating important intelligent devices** - whether it's geographically, with different networks, or with faraday cages- can prevent leakage in side channels and unauthorized access.
+- **Disable unused ports and services** on devices to prevent device hijacking.
+- **Systems should be designed to include security features** in order to ensure secure protocols and prevent unauthorized access.
 - **Mobile data exchange with isolated networks should be scanned for anything malicous** in order to ensure supply-chain trust and prevent device hijacking.
 
 Production floor security should be expected, and locking devices that aren't commonly programmed is a simple workaround. On the other hand, the other mitigations can have significant tradeoffs for enterprises. 
@@ -186,7 +179,13 @@ Last but not least, we get the Queen of ICS- **Supervisory Control and Data Acqu
 
 In conjunction with the mitigations listed for Layer 1 and Layer 0, the folowing mitigations help to secure control systems:
 
--
+- **Properly configured Security Information and Event Management (SIEM)** can prevent poor auditing and logging.
+- **Whitelisting applications for HMI** can prevent unauthorized access and supply-chain compromise by reducing the amount of applications that have access to systems.
+- **Testing updates, new features, and patches before deploying** can prevent any update failures.
+- **Documenting expected usage and configurations, and alarming any unusal settings** can prevent control logic manipulation.
+- **Security features should be consistently updated and sought after** in order to ensure secure protocols, secure networks, and prevent unauthorized access.
+
+As with Layer 1, implementing SIEM, building whitelists, adding updates, and testing features are all time intensive procedures. While testing features before deployment is just good practice and ensures availability, the others are more exclusive to security and would require extra labor and money.
 
 ### Layer 3: Manufacturing Operations Systems
 
@@ -205,9 +204,32 @@ Here are a few of the important manufacturing operation system concepts:
 
 #### Vulnerabilities
 
+- **Data Corruption** - Availability/Integrity - Is important data accurate, and recoverable from an isolated environment?
+- **Database Leaks** - Confidentiality - Is the cloud and database services properly configured?
+  - This includes SQLI or other API interfacing flaws.
+- **Network Security** - Integrity/Confidentiality - Are network boundaries properly enforced?
+- **Unauthorized Access/Espionage** - Integrity/Confidentiality - Are individuals with access to the manufacturing software authorized and trustable?
+- **Supply-Chain Trust** - Availability/Confidentiality - Is manufacturing software reliable, consistently updated and following proper security standards?
+- **Failure Tolerance** - Availability - If manufacturing operating systems fail, is there defualts and backup settings in place?
+- **Configuration Errors** - Integrity/Availability - Are MES/MOMS misconfigured in a way that could result in incorrect operation?
+- **Patch Management Deficiency** - Availability/Integrity - Is software and firmware regularly updated- and is there auditing and regulations on managing updates?
+- **Poor Auditing/Logging** - Integrity/Non-Repuditaion - If an attacker was to gain access, could they be detected through control system alarming and logging?
+
 #### Examples
 
 #### Mitigations
+
+SIEM, audits, alarms, whitelists, testing, and adding security features as described above are also important for this layer. Here's some additional mitigations:
+
+- **Data validity verification (such as checksums) and secure backups** prevent data corruption in manufacturing operating systems.
+- **Firewalls and IP geo-blocking** prevents unauthorized access and ensures network security.
+- **Implementing jump servers to enforce boundaries** ensures network security.
+- **Choosing secure protocols with 
+- **Intrusion Detection Systems (IDS) can be used see if anything crossed the IT/OT trust boundary, or has appeared in OT systems,** which prevents unauthorized access.
+
+> **Note:** Implementing machine learning (ML) into IDSs can be useful. There are two major types of ML: supervised and unsupervised. For known security issues, supervised models are previously trained and are effective in detecting anomolies. Unsupervised learning allows for ML modules to detect unique anomolies without organizing and labeling data. It does this by detecting events and finding patterns in the events, then setting a boundary as to what benign and malicious patterns are.
+
+
 
 ### Layer 4: Business Logistics
 
@@ -317,7 +339,9 @@ As we can see here, the effective layers of control in industrial systems also h
 3. **Production Control** - Manufacturing Operating Systems - The coordinating computer works as an in-between to reliably get usable data to the computer center, and adapt the computer center's decisions for the specialized industrial systems.
 4. **Production Scheduling** - Business Logistics - The computer center takes all the data from maufaturing and utilizes business information to make overarching decisions about the entire industrial system.
 
-## Security Between Layers
+## Security Across Layers
+
+This report focuses on how adding mitigations at each layer of the PERA model in key in securing, and
 
 
 
@@ -325,7 +349,24 @@ As we can see here, the effective layers of control in industrial systems also h
 
 ### Network Access Control
 
+An important part of network security is controlling who has access to what. In modern ICS ecosystems, this is a unique challenge, as IT/OT convergence allows for OT to be interacted with via IT channels. Below is a neat diagram showing the typical layout of enterprises within cloud-based systems:
+
+![SANS ICS410](SANS_ICS410.png)
+
+*Source: SANS*
+
 ### Communication Protocols
+
+
+## Conclusion
+
+Throughout this report, ICS security was recontextualized by breaking security concerns into individual PERA layers. While enforcement boundaries are necessary to secure an ICS, it is not the sole solution. Layer-by-layer coutnermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and adaptability in systems that cannot fail.
+
+There are a lot of vulnerabilites and mitigations across all layers of ICS, each with different costs and benefits. An imporant thing to consider when discussing the costs of implementing security features is that total faliure of an ICS is catastrophic. Supply-chain attacks, fraud, and ransomware are common and have resulted in enterprises losing millions of dollars- and, in some cases, has even killed some enterprises. 
+
+With that in mind, it might seem logical that mitigations should be implemented, regardless of cost. A lot are. But not all. Many factories have been around for a long time, and in the pre-Stuxnet era of ICS, most people didn't really think of control systems as a realistic target for hackers. Of course, ICS holds some of the most valuable assets for attackers, so enterprises have repeatedly been proven wrong in thinking their security measures were adequate. And this isn't an issue enterprises can fix overnight- enterprises are massive and not designed to restructure at the speed that exploits emerge.
+
+Fundamentally, OT is designed for longevity and reliablility, while exploits can appear nearly instantaneously. Combine that with the public attention industries attack and the large amount of attack vectors, and it's a recipe for disaster. Newer enterprises often design with security in mind, making it easier to implement new mitigations, but older enterprises are constantly stuck retrofitting systems never meant to be redesigned for modern security demands. Ultimately, by being aware of design flaws and vulnerabilities, we can further document effective Industrial Control Systems and design for a better future.
 
 ## Resources
 
@@ -337,4 +378,3 @@ As we can see here, the effective layers of control in industrial systems also h
 - NSA. "Operational Technology Assurance Partnership: Smart Controller Security within National Security Systems". NSA, 2025.
 - Shostack, Adam. *Threat Modeling: Designing for Security*. John Wiley & Sons, 2014.
 - Wikipedia.com
-

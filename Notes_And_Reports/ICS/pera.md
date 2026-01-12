@@ -19,7 +19,6 @@
 - [Industrial Network Security](#industrial-network-security)
   - [Network Access Control](#network-access-control)
   - [Communication Protocols](#communication-protocols)
-- [ICS Kill Chain](#ics-kill-chain)
 - [Conclusion](#conclusion)
 - [Resources](#resources)
 
@@ -307,11 +306,11 @@ As ERP has the most pieces to it, and the most user interaction, vulnerabilities
 1. **Colonial Pipeline Ransomware Attack (2021)** - Using Colonial Pipeline's inactive virtual private network (VPN) account with an exposed password, hackers were able to gain remote access to their computer systems and encrypt it with ransomware. The ransomware targeting billing and financial systems, but without orders Colonial Pipeline could not conduct pipeline operations. Colonial Pipeline had to pay 4.4 million USD to return to operations. This was a failure in supply-chain trust (VPN account exposure), poor auditing, and proper backup creation that resulted in a violation of availability and integrity.
 2. **Ukrainian Power Grid Trojan (2015)** - Utilizing social engineering campaigns, Russia's Sandworm Team was able to infect Ukranian Power Grid enterprise computers with the DoS BlackEnergy trojan via Microsoft Word's macros settings. This trojan disconnected the infected computers with the control system by blocking control and reporting messages, gained lateral movement through user accounts and network information, and exfiltrated data. A Killdisk was delivered to devices necessary to system recovery, which wiped their OS and render them unbootable. Through social engineering, data corruption, unauthorized access, and privilege escalation confidentiality, integrity, and availability were violated.
 3. **Norsk Hydro Attack (2019)** - This leveraged the **LockerGoga ransomware** as a targeted attack against Norsk Hydro, and forced the enterprise to switch all of its plants to non-IT control (manual control). This data corruption violated availability.
-4. **NotPetya Wiper Malware (2017)** - Ukraine was the main target of this attack, and while NotPetya appeared to be ransomeware, it would unrecoverably encrypt all data in enterprises. Using EternalBlue, it was able spread across infected networks into OT, and Mimikatz helped to harvest credentials for lateral movement. This data corruption violated availability.
+4. **NotPetya Wiper Malware (2017)** - Ukraine was the main target of this attack, and while NotPetya appeared to be ransomware, it would irrecoverably encrypt all data in enterprises. Using EternalBlue, it was able spread across infected networks into OT, and Mimikatz helped to harvest credentials for lateral movement. This data corruption violated availability.
 5. **BadRabbit (2017)** - Masquerading as an Adobe Flash udpate, BadRabbit was delivered in drive-by attacks via compromised legitimate websites that download a malware dropper. This ransomware used Mimikatz and EternalBlue to spread into OT before encrypting all of the data. Yet again, this targeted Ukrainian ICS and the data corruption violated availability.
 6. **WannaCry Worm (2017)** - This is yet another ransomware, probably the most famous one, as it infected an estimated 300,000 computers. It used EternalBlue, and again (gasp) violated availability via data corruption. But, there's a cool story to this one. **Marcus Hutchins, or MalwareTech,** was a hacker who was paid to develop the UPAS/Kronos kit to steal banking credentials. On the day WannaCry broke out Hutchins began reverse engineering the malware and discovered the domain it was connected to was unregistered, so he registered the domain and implemented honeypots to track the infected computers, which effectively became the worm's killswitch.
 
-Just a side note here, nearly all of these attacks target availability, which shows how relevant cyberwarefare is- especially in targeting critical infrastructure. Faliures in ICS security have extremely severe implications as we further rely on technology for more aspects of our societies.
+Just a side note here, nearly all of these attacks target availability, which shows how relevant cyberwarfare is- especially in targeting critical infrastructure. Failures in ICS security have extremely severe implications as we further rely on technology for more aspects of our societies.
 
 #### Mitigations
 
@@ -346,7 +345,7 @@ I like this distinction, as IIoT devices and logic controllers have different co
 
 As this model is more focused on separating sites and networks, Layer 3 and Layer 2 are a separated version of the control systems layer in our model above. This helps to emphasize different enforcement boundaries.  It also does not exactly have the manufacturing operations system layer we discussed- it seems as if that in included into supervisory control. Additionally, the business logistics layer is separated by different concerns with this models Layer 4 and Layer 5. 
 
-If anything, with these variation in the PERA model,would also add a "Layer -1" to include the field itself. While it's not relevant for Pelaez's network access article, as we saw above there are important security concerns when it comes to passive devices and materials in ICS.
+If anything, with these variation in the PERA model, I would also add a "Layer -1" to include the field itself. While it's not relevant for Pelaez's network access article, as we saw above there are important security concerns when it comes to passive devices and materials in ICS.
 
 ## Manufacturing Control Layers
 
@@ -384,10 +383,9 @@ An important part of network security is controlling who has access to what. In 
 
 *Source: SANS*
 
+By having a DMZ between major inforcement zones, ideally via jump servers and between major enforcement boundaries, generates a segemented and strict control over who accesses the OT vs IT server. Additionally, air-gapping and minor enforcement boundaries can prevent any exposure to sides from OT servers. An important design consideration here is how strict these enforcement boundaries are and how they will be implemented. There are some designs, such as unidirectional gateway, but that can reduce utilities of having IT/OT convergence in the first place. A typical implementation involves ensuring that a centralized site controls access control from a cloud containing all the site's data, while communication between separate sites is prohibited.
+
 ### Communication Protocols
-
-
-## ICS Kill Chain
 
 
 

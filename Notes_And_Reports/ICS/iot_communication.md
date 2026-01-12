@@ -10,6 +10,7 @@
 - [Transport Layer](#transport-layer)
 - [Network Layer](#network-layer)
 - [Link Layer](#link-layer)
+- [Physical Layer](#physical-layer)
 
 ## Protocol Stack
 
@@ -26,9 +27,11 @@ Typically, IoT protocols can be an TCP/IP stack extension, but the common layers
 
 ### HTTP/HTTPS (Hypertext Transfer Protocol)
 
-### ZigBee
-
 ### HART (Highway Addressable Remote Transducer)
+
+### WebSocket
+
+### LwM2M (Lightweight Machine-to-Machine)
 
 ### Open Platform Communications (OPC)
 
@@ -42,33 +45,47 @@ Typically, IoT protocols can be an TCP/IP stack extension, but the common layers
 
 ### RPC (Remote Procedure Call)
 
-#### IEC 60870-5-104
+### IEC 60870-5-104
 
-#### IEC 61850
+### IEC 61850
 
-#### IEC 61400-25
+### IEC 61400-25
 
-#### IEEE C37.118
+### IEEE C37.118
 
-#### Profinet 
+### Profinet 
 
-#### S7comm
+### S7comm
 
-#### BACnet
+### BACnet
 
-#### CANBus
+### CANBus
 
 ## Transport Layer
+
+### TCP
+
+### UDP
+
+### DTLS
 
 ## Network Layer
 
 ### HYDRA
 
-### 6LoWPAN
+### 6LoWPAN (Low Power Wide Area Network)
 
-### LoraWAN
+### Routing Protocol for Low-Power and Lossy Network (RPL)
+
+### CORPL
+
+### CARP (Channel-Aware Routing Protocol)
 
 ## Link Layer
+
+### LPWAN
+
+### IEEE Standards
 
 ### DNP3
 
@@ -77,3 +94,23 @@ Typically, IoT protocols can be an TCP/IP stack extension, but the common layers
 ### CMSA/CD (Carrier-sense multiple access with collision detection) 
 
 ### EtherCAT (IEC 61158)
+
+## Physical Layer
+
+### Bluetooth
+
+### BLE (Bluetooth Low Energy)
+
+### SigFox
+
+### RFID
+
+### Z-Wave
+
+### ZigBee
+
+### NFC (Near Field Communication)
+
+### LoraWAN
+
+### Cellular

@@ -1,6 +1,6 @@
 # ICS Security from a PERA Perspective
 
-> Throughout this report, ICS security was recontextualized by breaking security concerns into individual PERA layers. Layer-by-layer countermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and security in our systems that cannot fail.
+> Throughout this report, ICS security was re-contextualized by breaking security concerns into individual PERA layers. Layer-by-layer countermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and security in our systems that cannot fail.
 
 ## Table of Contents
 
@@ -19,6 +19,7 @@
 - [Industrial Network Security](#industrial-network-security)
   - [Network Access Control](#network-access-control)
   - [Communication Protocols](#communication-protocols)
+- [ICS Kill Chain](#ics-kill-chain)
 - [Conclusion](#conclusion)
 - [Resources](#resources)
 
@@ -127,10 +128,10 @@ Since IEDs are typically custom built to fit manufacturing needs and are often n
 
 #### Examples
 
-1. **Triton Malware (2017)** - When russian attackers were able to gain access into an enterprise, they would utilize lateral movement over IT and OT systems to target a vulnerability in Schneider Electronic Triconex safety instrumented system (SIS), which were the devices used to initiate shutdown protocols during emergencies. Trition allowed for complete remote control over the SIS. This is unauthorized access and device hijacking that violates availability and integrity.
+1. **Triton Malware (2017)** - When Russian attackers were able to gain access into an enterprise, they would utilize lateral movement over IT and OT systems to target a vulnerability in Schneider Electronic Triconex safety instrumented system (SIS), which were the devices used to initiate shutdown protocols during emergencies. Trition allowed for complete remote control over the SIS. This is unauthorized access and device hijacking that violates availability and integrity.
 2. **Stuxnet Worm (2010)** - The infamous "first" ICS attack was created by Israel and the US, and targeted the Natanz Nuclear Facility in Iran. It was introduced via USB flash drive, where it would infect Windows machines and expand laterally across networks. It utilizes malicious SQL commands and targets PLCs running Siemens Step7 software. Once Step7 software was detected, the rootkit would be installed and it would manipulate the PLC inputs and outputs and alters logs to reduce detectability. In the Natanz Nuclear Facility, it sped up gas-centrifuges fast enough to break them. This is unauthorized access, physical sabotage, supply-chain trust, and device hijacking that violates availability and integrity.
-3. **Industroyer (2016)** -
-4. **Pipedream (2022)** -
+3. **Industroyer (2016)** - This malware framework designed by the Sandworm Team is modular and relies on a main Windows notepad backdoor for C2. It uses the DoS attack, CVE-2015-5374, to target Siemen's SPIROTEC, and it gains control over RTUs with the goal of wiping registry keys and render as many devices unbootable as possible in Ukrainian electrical substations as possible. This attack hijacks devices to violate availability, integrity, and confidentiality.
+5. **Pipedream (2022)** - This one is an exploit framework used for a broad amount of PLCs and other ICS attacks. Developed by the CHERNOVITE group, it has exploits for Open Platform Communications Unified Architecture (OPC UA), Modbus, Schneider Electronics PLCs, and OMRON PLCs. This framework allows refined device hijacking techniques to be leveraged by less experienced attackers and violates availability, integrity, and confidentiality.
 
 #### Mitigations
 
@@ -177,8 +178,8 @@ Last but not least, we get the Queen of ICS- **Supervisory Control and Data Acqu
 #### Examples
 
 1. **United States v. Martin K. Maxwell (2005)** - Maxell was fired from a manufacturing plant, and in retaliation he hacked into the plant's SCADA systems to delay production lines. This is unauthorized access and control logic manipulation that violated integrity and availability.
-2. **FrostyGoop (2024)** -
-3. **Havex RAT (2013)** - 
+2. **FrostyGoop Incident (2024)** - Frostygoop is a Golang binary that reads and writes registers in ICS targets utilizng Modbus. The incident targeted a district heating company in Ukraine via an exposed router, captured credentials from the Security Account Manager (SAM) hive, altered controller readings, and rolled back controller firmware. This one used insecure protols and poor network security to violate integrity and confidentiality.
+3. **Havex RAT (2013)** - Developed by Dragonfly, this RAT used supply-chain, watering-hole, and spear phishing techniques to conduct espionage on enterprises in energy, aviation, defense, and petrochemical fields in the US and Europe. It used a PHP-developed C2 and an OPC scanning module to find open TCP devices operating on certain ports. It infected many enterprises IT systems, but with poor boundary enforcement it also easily infected SCADA systems. The main goal of Havex was to inject Karnagy and exfiltrate data including keystrokes, network information, and credentials. This supply-chain attack and unauthorized access violated integrity and confidentiality.
 
 #### Mitigations
 
@@ -222,11 +223,11 @@ Here are a few of the important manufacturing operation system concepts:
 
 #### Examples
 
-I couldn't find any real life examples that directly targeted Layer 3. Chop chop threat actors, I have a report to write! Kidding, I *guess* it's a good thing I didn't find OT database and historian exploits, but there were probably some supply-chain attacks I missed.
+I couldn't find any real life examples that directly targeted Layer 3. Chop chop threat actors, I have a report to write! Kidding, I *guess* it's a good thing I didn't find too many dedicated OT database/historian exploits.
 
-Realistically, a lot of the malware I described in the lower layers do exfiltrate data from this layer, and but this layer is essentailly where IT/OT enforcement lies. It's sort of that checkpoint for OT. So if malware infects Layer 4 and is able to exfiltrate or encrypt data from this layer, it successfully attacked OT systems. Something notable is that most Layer 4 exploit examples I give did not effect this layer, besides NotPetya, BadRabbit and WannnaCry (which I'll discuss below).
+Realistically, a lot of the malware I described in the lower layers do exfiltrate data from this layer, or use it for movement and escalation techniques. But, this layer is essentially where IT/OT enforcement lies. It's sort of that checkpoint for OT. If malware infects Layer 4 and is able to exfiltrate or encrypt data from this layer, it successfully attacked OT systems and will probably be targeting the lower layers. Something notable is that most Layer 4 exploit examples I give were stuck in IT and did not effect this layer, save for a few exceptions.
 
-But, the most important thing to talk here is **MS17-010, more famously recognized as EternalBlue**. That's what NotPetya, BadRabbit, and WannaCry leveraged to infect industrial systems. This is a Critical Windows Exploit that enabled remote code execution (RCE) in Microsoft Server Message Block 1.0 (SMBv1).
+Actually, that's the most important thing to talk about here- these exceptions were enabled by the **MS17-010 vulnerability, more famously recognized as EternalBlue**. That's what NotPetya, BadRabbit, and WannaCry leveraged to infect industrial systems and get past IT systems. This is a critical Windows exploit that enabled remote code execution (RCE) in Microsoft Server Message Block 1.0 (SMBv1).
 
 #### Mitigations
 
@@ -305,20 +306,23 @@ As ERP has the most pieces to it, and the most user interaction, vulnerabilities
 
 1. **Colonial Pipeline Ransomware Attack (2021)** - Using Colonial Pipeline's inactive virtual private network (VPN) account with an exposed password, hackers were able to gain remote access to their computer systems and encrypt it with ransomware. The ransomware targeting billing and financial systems, but without orders Colonial Pipeline could not conduct pipeline operations. Colonial Pipeline had to pay 4.4 million USD to return to operations. This was a failure in supply-chain trust (VPN account exposure), poor auditing, and proper backup creation that resulted in a violation of availability and integrity.
 2. **Ukrainian Power Grid Trojan (2015)** - Utilizing social engineering campaigns, Russia's Sandworm Team was able to infect Ukranian Power Grid enterprise computers with the DoS BlackEnergy trojan via Microsoft Word's macros settings. This trojan disconnected the infected computers with the control system by blocking control and reporting messages, gained lateral movement through user accounts and network information, and exfiltrated data. A Killdisk was delivered to devices necessary to system recovery, which wiped their OS and render them unbootable. Through social engineering, data corruption, unauthorized access, and privilege escalation confidentiality, integrity, and availability were violated.
-4. **NotPetya ()** -
-5. **WannaCry ()** -
-6. **BadRabbit ()** -
+3. **Norsk Hydro Attack (2019)** - This leveraged the **LockerGoga ransomware** as a targeted attack against Norsk Hydro, and forced the enterprise to switch all of its plants to non-IT control (manual control). This data corruption violated availability.
+4. **NotPetya Wiper Malware (2017)** - Ukraine was the main target of this attack, and while NotPetya appeared to be ransomeware, it would unrecoverably encrypt all data in enterprises. Using EternalBlue, it was able spread across infected networks into OT, and Mimikatz helped to harvest credentials for lateral movement. This data corruption violated availability.
+5. **BadRabbit (2017)** - Masquerading as an Adobe Flash udpate, BadRabbit was delivered in drive-by attacks via compromised legitimate websites that download a malware dropper. This ransomware used Mimikatz and EternalBlue to spread into OT before encrypting all of the data. Yet again, this targeted Ukrainian ICS and the data corruption violated availability.
+6. **WannaCry Worm (2017)** - This is yet another ransomware, probably the most famous one, as it infected an estimated 300,000 computers. It used EternalBlue, and again (gasp) violated availability via data corruption. But, there's a cool story to this one. **Marcus Hutchins, or MalwareTech,** was a hacker who was paid to develop the UPAS/Kronos kit to steal banking credentials. On the day WannaCry broke out Hutchins began reverse engineering the malware and discovered the domain it was connected to was unregistered, so he registered the domain and implemented honeypots to track the infected computers, which effectively became the worm's killswitch.
+
+Just a side note here, nearly all of these attacks target availability, which shows how relevant cyberwarefare is- especially in targeting critical infrastructure. Faliures in ICS security have extremely severe implications as we further rely on technology for more aspects of our societies.
 
 #### Mitigations
 
-This layer is more IT focused, so mitigations will look a bit different. Overlapping mitigations include SIEM, IDS, implementing & testing security features, and secure network strategies.
+This layer is more IT focused, so mitigations will look a bit different. Overlapping mitigations include SIEM, IDS, implementing & testing security features, and secure network strategies. Here's some new ones:
 
 - **Activity with external facing business activities should be checked for early stage reconnaissance activity** to prevent phishing and unauthorized access.
-- **Checking supply-chain metadata to ensure legitimate ICS software is being utilized** can prevent faliures in supply-chain trust.
+- **Checking supply-chain metadata to ensure legitimate ICS software is being utilized** can prevent failures in supply-chain trust.
 - **Providing security training to employees** prevents social engineering attacks and unauthorized access.
 - **Clearly separating privileges (SoD) within ERP** can stop privilege escalation.
 - **Isolating the backup server** can prevent data corruption.
-- **Auditing accounts and software that contains privileges or sensitive information** can prevent privilige escalation and database leaks.
+- **Auditing accounts and software that contains privileges or sensitive information** can prevent privilege escalation and database leaks.
 
 ## Alternate PERA Models
 
@@ -342,7 +346,7 @@ I like this distinction, as IIoT devices and logic controllers have different co
 
 As this model is more focused on separating sites and networks, Layer 3 and Layer 2 are a separated version of the control systems layer in our model above. This helps to emphasize different enforcement boundaries.  It also does not exactly have the manufacturing operations system layer we discussed- it seems as if that in included into supervisory control. Additionally, the business logistics layer is separated by different concerns with this models Layer 4 and Layer 5. 
 
-If anything, with these variation in the PERA model, I would also add a "Layer -1" to include the field itself. While it's not relevant for Pelaez's network access article, as we saw above there are important security concerns when it comes to passive devices and materials in ICS.
+If anything, with these variation in the PERA model,would also add a "Layer -1" to include the field itself. While it's not relevant for Pelaez's network access article, as we saw above there are important security concerns when it comes to passive devices and materials in ICS.
 
 ## Manufacturing Control Layers
 
@@ -364,7 +368,7 @@ As we saw with mitigations offered in each layer, oftentimes those mitigations w
 
 Lastly, here are security practices that secure all the layers:
 - **Complying with security standards, such as IEC 62443 and relevant CIP standards** can prevent a broad amount cyberattacks against an ICS. The standards outlined in these documents are targeted and comprehensive, and are often legally enforced.
-- **Regular pentesting/red-teaming ICS systems** can discover vulnurabilities before attackers do, which gives an enterprise the chance to mitigate before being required to resort to incident response.
+- **Regular pentesting/red-teaming ICS systems** can discover vulnerabilities before attackers do, which gives an enterprise the chance to mitigate before being required to resort to incident response.
 - **Building incident response plans and preparing for failure** can prevent losses in availability in the case of attacks, and ensure cyberattacks are recoverable if they occur.
 - **Designing systems to integrate security features, having documented processes, and providing effective project lifecycles** makes adopting new security features easier for an ICS.
 
@@ -383,15 +387,19 @@ An important part of network security is controlling who has access to what. In 
 ### Communication Protocols
 
 
+## ICS Kill Chain
+
+
+
 ## Conclusion
 
-Throughout this report, ICS security was recontextualized by breaking security concerns into individual PERA layers. While enforcement boundaries are necessary to secure an ICS, it is not the sole solution. Layer-by-layer countermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and adaptability in our systems that cannot fail.
+Throughout this report, ICS security was re-contextualized by breaking security concerns into individual PERA layers. While enforcement boundaries are necessary to secure an ICS, it is not the sole solution. Layer-by-layer countermeasures, all rooted in efficient, modular, and well-documented design ensure failure tolerance and adaptability in our systems that cannot fail.
 
 There are a lot of vulnerabilities and mitigations across all layers of ICS, each with different costs and benefits. An important thing to consider when discussing the costs of implementing security features is that total failure of an ICS is catastrophic. Supply-chain attacks, fraud, and ransomware are common and have resulted in enterprises losing millions of dollars- and, in some cases, has even killed some enterprises. 
 
 With that in mind, it might seem logical that mitigations should be implemented, regardless of cost. A lot are. But not all. Many factories have been around for a long time, and in the pre-Stuxnet era of ICS, most people didn't really think of control systems as a realistic target for hackers. Of course, ICS holds some of the most valuable assets for attackers, so enterprises have repeatedly been proven wrong in thinking their security measures were adequate. And this isn't an issue enterprises can fix overnight- enterprises are massive and not designed to restructure at the speed that exploits emerge.
 
-Fundamentally, OT is designed for longevity and reliablility, while exploits can appear nearly instantaneously. Combine that with the public attention industries attack and the large amount of attack vectors, and it's a recipe for disaster. Newer enterprises often design with security in mind, making it easier to implement new mitigations, but older enterprises are constantly stuck retrofitting systems never meant to be redesigned for modern security demands. Ultimately, by being aware of design flaws and vulnerabilities, we can further document effective Industrial Control Systems and design for a better future.
+Fundamentally, OT is designed for longevity and reliability, while exploits can appear nearly instantaneously. Combine that with the public attention industries attack and the large amount of attack vectors, and it's a recipe for disaster. Newer enterprises often design with security in mind, making it easier to implement new mitigations, but older enterprises are constantly stuck retrofitting systems never meant to be redesigned for modern security demands. Ultimately, by being aware of design flaws and vulnerabilities, we can further document effective Industrial Control Systems and design for a better future.
 
 ## Resources
 
@@ -404,4 +412,3 @@ Fundamentally, OT is designed for longevity and reliablility, while exploits can
 - NSA. "Operational Technology Assurance Partnership: Smart Controller Security within National Security Systems". NSA, 2025.
 - Shostack, Adam. *Threat Modeling: Designing for Security*. John Wiley & Sons, 2014.
 - Wikipedia.com.
-

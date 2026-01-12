@@ -24,7 +24,7 @@
 
 ## Introduction
 
-This document covers key concepts within Industrial Control Systems (ICS) security. It analyzes common frameworks and industry standards to understand enterprise design choices and security practices. Additionally, this covers security concerns for Industrial Internet-of-Things (IIoT) protocols.
+This document covers key concepts within Industrial Control Systems (ICS) security. It analyzes common frameworks and industry standards to understand enterprise design choices and security practices.
 
 The **Purdue Enterprise Reference Architecture (PERA)** is a common model used to describe the control processes within **Enterprise Architecture**. This model is a useful tool to understand the data and systems utilized within enterprises, and how enterprises work to optimize goal-metrics. Additionally, this model allows for understanding how end-users and vendors can integrate applications. 
 
@@ -129,7 +129,7 @@ Since IEDs are typically custom built to fit manufacturing needs and are often n
 
 1. **Triton Malware (2017)** - When Russian attackers were able to gain access into an enterprise, they would utilize lateral movement over IT and OT systems to target a vulnerability in Schneider Electronic Triconex safety instrumented system (SIS), which were the devices used to initiate shutdown protocols during emergencies. Trition allowed for complete remote control over the SIS. This is unauthorized access and device hijacking that violates availability and integrity.
 2. **Stuxnet Worm (2010)** - The infamous "first" ICS attack was created by Israel and the US, and targeted the Natanz Nuclear Facility in Iran. It was introduced via USB flash drive, where it would infect Windows machines and expand laterally across networks. It utilizes malicious SQL commands and targets PLCs running Siemens Step7 software. Once Step7 software was detected, the rootkit would be installed and it would manipulate the PLC inputs and outputs and alters logs to reduce detectability. In the Natanz Nuclear Facility, it sped up gas-centrifuges fast enough to break them. This is unauthorized access, physical sabotage, supply-chain trust, and device hijacking that violates availability and integrity.
-3. **Industroyer (2016)** - This malware framework designed by the Sandworm Team is modular and relies on a main Windows notepad backdoor for C2. It uses the DoS attack, CVE-2015-5374, to target Siemen's SPIROTEC, and it gains control over RTUs with the goal of wiping registry keys and render as many devices unbootable as possible in Ukrainian electrical substations as possible. This attack hijacks devices to violate availability, integrity, and confidentiality.
+3. **Industroyer (2016)** - This malware framework designed by the Sandworm Team is modular and relies on a main Windows notepad backdoor for C2. It uses the DoS attack, CVE-2015-5374, to target Siemen's SPIROTEC, and it gains control over RTUs with the goal of wiping registry keys and render as many devices unbootable as possible in Ukrainian electrical substations. This attack hijacks devices to violate availability, integrity, and confidentiality.
 5. **Pipedream (2022)** - This one is an exploit framework used for a broad amount of PLCs and other ICS attacks. Developed by the CHERNOVITE group, it has exploits for Open Platform Communications Unified Architecture (OPC UA), Modbus, Schneider Electronics PLCs, and OMRON PLCs. This framework allows refined device hijacking techniques to be leveraged by less experienced attackers and violates availability, integrity, and confidentiality.
 
 #### Mitigations
@@ -383,11 +383,11 @@ An important part of network security is controlling who has access to what. In 
 
 *Source: SANS*
 
-By having a DMZ between major inforcement zones, ideally via jump servers and between major enforcement boundaries, generates a segemented and strict control over who accesses the OT vs IT server. Additionally, air-gapping and minor enforcement boundaries can prevent any exposure to sides from OT servers. An important design consideration here is how strict these enforcement boundaries are and how they will be implemented. There are some designs, such as unidirectional gateway, but that can reduce utilities of having IT/OT convergence in the first place. A typical implementation involves ensuring that a centralized site controls access control from a cloud containing all the site's data, while communication between separate sites is prohibited.
+Having a DMZ between major inforcement zones, ideally via jump servers and between major enforcement boundaries, generates a segemented and strict control over who accesses the OT vs IT server. Additionally, air-gapping and minor enforcement boundaries can prevent any exposure to sides from OT servers. An important design consideration here is how strict these enforcement boundaries are and how they will be implemented. There are some designs, such as unidirectional gateway, but that can reduce utilities of having IT/OT convergence in the first place. A typical implementation involves ensuring that a centralized site controls access control from a cloud containing all the site's data, while communication between separate sites is prohibited.
 
-### Communication Protocols
+# Communication Protocols
 
-
+There are a lot of communication protocols to discuss! How IoT devices talk to each other is complicated and broad, and there's too much to put here. Check out [this writeup](iot_communication.md) to see how different protocols work and what sort of security they implement.
 
 ## Conclusion
 

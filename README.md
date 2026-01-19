@@ -1,17 +1,15 @@
 # Security Writeups
 
-This repo stores personal reports I write to document my process in learning cybersecurity related concepts.
+This repo documents my progress in cybersecurity. Most of my notes are on paper, but I do link a handful or reports I've written.
 
-## Notes and Reports
+## CTF Records
 
-This is where I store a digitization of my written notes, restructured into readable reports.
+- [Tryhackme](https://tryhackme.com/p/stenslae)
+
+## Reports
 
 - **[The PERA Model from an ICS Security Perspective](Notes_And_Reports/ICS/pera.md)** - This report explains how the Purdue Enterprise Reference Architecture (PERA) model works, then maps key vulnerabilities and mitigations at each layer. Additional models, real-life exploits, and network access control are all discussed.
-
-## Lab Reports
-
-This is where I store smaller-scale security lab reports/walkthroughs. If they don't require their own repo, they just go here.
-
+- **[Emotet Trojan on Wireshark](Lab_Writeups/Forensics/Wireshark_Trace_Analysis_Emotet_Trojan.pdf)** - A Wireshark trace of an infected machine was analyzed, parts of the Cyber Kill Chain were identified, and a timeline was developed.
 - **[Shellshock](Lab_Writeups/Exploits/Linux/Shellshock.pdf)** - SeedLab's Shellshock lab, Vulnerable Bash version achieves RCE
 - **[Set UID](Lab_Writeups/Exploits/Linux/Set_UID.pdf)** - Vulnerable C command execve(), SetUID, and manipulating environment variables for RCE
 - **[DNS Poisoning](Lab_Writeups/Exploits/Network/DNS_Cache_Poisoning.pdf)** - SeedLab's DNS Spoofing & Poisoning
@@ -20,4 +18,3 @@ This is where I store smaller-scale security lab reports/walkthroughs. If they d
 - **[Hashing](Lab_Writeups/Exploits/Cryptography/MD5_Collision.pdf)** - Brute forcing hashed password, MD5 Collisions
 - **[SQL Injections](Lab_Writeups/Exploits/Web/SQL_Injections.pdf)** - SeedLab's SQLI Lab.
 - **[XSS Attacks](Lab_Writeups/Exploits/Web/XXS_Attack.pdf)** - SeedLab's XSS Attack Lab.
-- **[Emotet Trojan on Wireshark](Lab_Writeups/Forensics/Wireshark_Trace_Analysis_Emotet_Trojan.pdf)** - A Wireshark trace of an infected machine was analyzed, parts of the Cyber Kill Chain were identified, and a timeline was developed.

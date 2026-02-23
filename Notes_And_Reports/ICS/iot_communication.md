@@ -1,14 +1,14 @@
 
-# IoT Communication Protocols
+# IoT/ICS Communication Protocols
 
-> This is just my notes on IoT communication.
+> This is just my notes on IoT/ICS communication.
 
 ## Table of Contents
 
 - [IoT Protocol Stack](#protocol-stack)
 - [Communication Ranges](#communication-ranges)
-- [High Level IoT Protocols](#high-level-iot-protocols)
-- [Transport Layer Considerations](#transport-layer-considerations)
+- [Controller Specific](#controller-specific)
+- [Machine to Machine](#machine-to-machine)
 - [Fieldbuses](#fieldbuses)
 - [PAN RF Protocols](#pan-rf-protocols)
 - [WAN RF Protocols](#wan-rf-protocols)
@@ -26,7 +26,7 @@ Typically, IoT protocols can be an TCP/IP stack extension, but the common layers
 - **Network Layer** - IP routing and IPv6 packets
 - **Link Layer** - Traffic and device access
 
-To further dive into this, there's a IoT version of the OSI model stack accoring to source [9]. It's a bit of a stretch, but still a cool model to talk about, and I'm naming it the IoTSI (Internet of Things System Interconnection) model for the purposes of these notes.
+To further dive into this, there's a IoT version of the OSI model stack accoring to RF Wireless World. It's a bit of a stretch, but still a cool model to talk about, and I'm naming it the IoTSI (Internet of Things System Interconnection) model for the purposes of these notes.
 
 1. **Physical Layer** - The communication between the real world and sensors. This uses magic sensor technology that boils down to fancy multimeters.
 2. **Processing Layer** - How data gets processed. Microcontrollers and what not.
@@ -36,7 +36,7 @@ To further dive into this, there's a IoT version of the OSI model stack accoring
 6. **User Experience Layer** - This is where the UI lies and data analytics and interfacing.
 7. **Application Layer** - This one is just what the other layers do together and defines the functional system, I guess...
 
-The IoTSI model is more focused on the functionality of the data over how the data transfer actually works, and misses a lot while trying to explain IoT networks.
+The IoTSI model is more focused on the functionality of the data over how the data transfer actually works, and misses a lot while trying to explain IoT networks since it assumes OSI integration.
 
 ## Communication Ranges
 
@@ -62,13 +62,28 @@ Wide area networks cover large ranges and are built either by Internet Service P
 
 Internet Area Networks are rising in popularity due to the increase of the virtualization of internet services. This means that services such as emails don't solely rely on endpoints, but instead occur via endpoints connecting to sessions controlled by the cloud. Large scale data centers manage the services, while endpoints simply connect to cloud using a broadband connection. IAN is a type of WAN, just talks about the cloud integration.
 
-## High Level IoT Protocols
+## Controller Specific
+
+### S7comm (Siemens)
+
+
+
+### OpenPLC
+
+
+
+### Node-RED
+
+
+
+### Omron TCP/RTU
+
+
+
+## Machine to Machine
 
 ### MQTT (Message Queuing Telemetry Transport)
 
-
-
-### HART (Highway Addressable Remote Transducer)
 
 
 
@@ -87,10 +102,6 @@ Internet Area Networks are rising in popularity due to the increase of the virtu
 
 
 
-### S7comm
-
-
-
 ### LwM2M (Lightweight Machine-to-Machine)
 
 
@@ -98,18 +109,9 @@ Internet Area Networks are rising in popularity due to the increase of the virtu
 ### Open Platform Communications (OPC)
 
 
-
 ### DNP3
 
-
-
-## Transport Layer Considerations
-
-## TCP vs. UDP
-
-## Security
-- DTLS
-
+DNP3 defines a set of communication protocols used in process automation systems, and typically integrates with operational technology such as remote terminal units (RTUs) and programmable logic controllers (PLCs). The goal of DNP3 is to collate all communication into the central human-machine interface/supervisory control and data acquisition (HMI/SCADA) node. 
 
 ## Fieldbuses
 
@@ -131,43 +133,41 @@ BACnet is a protocol for Building Automation and Control (BAC) networks and is t
 
 
 
+### HART (Highway Addressable Remote Transducer)
+
+
+
 ### EtherCAT
 
-EtherCAT (Ethernet for Control Automation Technology) leverages an IEC 61158 Fieldbus system over Ethernet in order to enable real-time computing in industrial applications. Synchronization is expected to be precise and low jitter with less than 1us of clock speed. In this system, an EtherCAT master has a large amount of slaves daisy chained together, and the master communicates with these slaves in a loop style. Typically, the master will have multiple ports connected to the slaves, enabling network redundancy, and have loopback switches that close on failure of the primary communication line, which connects a redundant communication line [2].
+EtherCAT (Ethernet for Control Automation Technology) leverages an IEC 61158 Fieldbus system over Ethernet in order to enable real-time computing in industrial applications. Synchronization is expected to be precise and low jitter with less than 1us of clock speed. In this system, an EtherCAT master has a large amount of slaves daisy chained together, and the master communicates with these slaves in a loop style. Typically, the master will have multiple ports connected to the slaves, enabling network redundancy, and have loopback switches that close on failure of the primary communication line, which connects a redundant communication line.
 
 ## PAN RF Protocols
 
-### Bluetooth 
+### Bluetooth & BLE
 
-
-
-### BLE
-
-
-
-### ZigBee
-
-
+Bluetooth transmits data over short ranges in personal area networks. It uses the UHF band of 2.402 GHz to 2.48 GHz. This is IoT, though, so of course there is the embedded edition, Bluetooth Low Energy (BLE). BLE sends smaller data packets, is spread across different frequencies, and has sleep modes. It is incompatible with bluetooth, so most BLE chips have Bluetooth.
 
 ### Z-Wave
 
+Z-Wave is a wireless ad hock network that operates in the sub-GHz band, around 900 MHz. It does not interfere with Wi-Fi and Bluetooth and is low power and low-data rate. It is capable of mesh networking, where Z-Wave devices can repeat signals up to four hops to extend the network range, with up to 232 devices, and each device has a range of 70-100 meters. Z-Wave transmits with AES-128 encryption, and is typically used in smart homes.  
 
+### ZigBee
 
+Zigbee is a low power communication wireless ad hock network. Zigbee defines the device management and application protocol, while IEEE 802.15.4 is the physical and link layer. It is a wireless mesh network that uses AES-128 encryption. IEEE 802.15.4 operates primarily in the 2.4 GHz band. It's used in smart homes usually, it is pretty much the same as Z-Wave but not proprietary.
 
 ## WAN RF Protocols
 
 ### 6LoWPAN
 
+6LoWPAN is a low power WAN that uses IPv6. IPv4 and IPv6 can wrap any physical and link layers, but this defines the application between IP and the low-power devices. It also uses IEEE 802.15.4, like Zigbee.
 
+### LoRaWAN
+
+Long Range  is a radio communication on spread spectrum modulation. LoRa is the radio signal technology while LoRaWAN is the actual applicaiton. It is used for low-power devices over long distances. It uses sub gigahertz radio frequencies that are not liscenced, such as the bands 863 MHz to 928 MHz. It is especially used for transmitting positional information and it has datarates of 300 bits/s to 27 kbits/s.
 
 ### SigFox
 
-
-
-
-### LoraWAN
-
-
+Sigfox is a 0G low-power WAN that is in short range bands of 868 MHz and 902 MHz. Sigfox is designed to connect low power objects securely when they emit small amounts of data. It's proprietary, but functions like other LoWANs, where base stations connect IoT devices.
 
 ## Routing Protocols
 
@@ -175,23 +175,13 @@ Routers route, but IoT routers are special because they route in low power and h
 
 ### RPL (Routing Protocol for Low-Power and Lossy Networks)
 
+RPL supports a wide range of link-layer protocols. RPL works by building a acryplic graph to find a single route for all traffic, which is stored at the root, while each node only knows it and its parents. When a node wants to communicate, it sends a request to communicate to its parent, which then propagates to the root, who decides how to trasmit data. RPL allows for storage and data management, and uses server technologies.
 
-
-### CORPL (Cognitive RPL)
-
-
-
-### CARP (Channel Aware Routing Protocol)
-
-
-
-### CMSA/CD (Carrier-sense multiple access with collision detection) 
-
-
+Since the root controls everything, this preserves any failure in nodes and reduces the amount of power demanded by eacy node.
 
 ## Middleware
 
-Middleware for IoT networks integrates operating systems and embedded devices. It's primary goal is to take networked embedded devices and provide ambient intelligent application access on machines. Middleware services such as HYDRA enable secure applications for embedded devices, where peer to peer networking can be enabled, and identity management can be handled. Middleware allows for software applications to be significantly easier to develop with middleware that can natively handle embedded devices. Middleware projects and brands includes WhereX, HYDRA, InterDataNet, Z-Wave, and Convergence. Middleware is capable of managing security layers, device management, device locking, and policy enforcement [5].
+Middleware for IoT networks integrates operating systems and embedded devices. It's primary goal is to take networked embedded devices and provide ambient intelligent application access on machines. Middleware services such as HYDRA enable secure applications for embedded devices, where peer to peer networking can be enabled, and identity management can be handled. Middleware allows for software applications to be significantly easier to develop with middleware that can natively handle embedded devices. Middleware projects and brands includes WhereX, HYDRA, InterDataNet, Z-Wave, and Convergence. Middleware is capable of managing security layers, device management, device locking, and policy enforcement.
 
 To go back to the IoTSI model, layer 6 and 7 are possible without middleware, but it's very annoying. Middleware lets random CS kids able to make applications for IoT devices with without them needing to open the datasheets of any of the devices their app uses. It standardizes access between everything.
 
@@ -201,11 +191,11 @@ Electromagnetic wave-icles move, which means they have energy. We generate a ton
 
 ### Short Field Energy Transfer
 
-Short field energy transfer famously occurs in Radio frequency identification (RFID). RFID tags uses a small radio transmitter and receiver, and when in close proximity to an electromagnetic interrogation pulse, it will be powered and transmit data. The interrogating device typically holds a databased value in order to cross-reference of the data sent by the tag [4]. This allows for supply traceability and identity verification [3]
+Short field energy transfer famously occurs in Radio frequency identification (RFID). RFID tags uses a small radio transmitter and receiver, and when in close proximity to an electromagnetic interrogation pulse, it will be powered and transmit data. The interrogating device typically holds a databased value in order to cross-reference of the data sent by the tag. This allows for supply traceability and identity verification.
 
 ### Long Field Energy Transfer
 
-When antennas receive a signal, a voltage is generated. Bursts of brodcasts from routers generates enough voltage for a bit under 300mV inconsistently. But, a feature known as poWi-Fi can be used, since routers can simultaneously broadcast across three non-overlapping channels, multiple channels can be used to continually broadcast and remotely power small battery-free devices within 5 meters [10].
+When antennas receive a signal, a voltage is generated. Bursts of brodcasts from routers generates enough voltage for a bit under 300mV inconsistently. But, a feature known as poWi-Fi can be used, since routers can simultaneously broadcast across three non-overlapping channels, multiple channels can be used to continually broadcast and remotely power small battery-free devices within 5 meters.
 
 ## Resources
 
@@ -219,3 +209,4 @@ When antennas receive a signal, a voltage is generated. Bursts of brodcasts from
 8. https://en.wikipedia.org/wiki/Main_Page
 9. https://www.rfwireless-world.com
 10. https://www.technologyreview.com/2015/06/03/167817/first-demonstration-of-a-surveillance-camera-powered-by-ordinary-wi-fi-broadcasts/
+11. https://www.remoteengineer.eu

@@ -1,8 +1,8 @@
 # Security Writeups
 
-This repo documents my progress in cybersecurity. Most of my notes are on paper, but I do link a handful or reports I've written.
+Most of my notes are on paper, but I store my digital notes and reports here.
 
-## CTF Records
+## CTF/Online Lab Records
 
 - [Tryhackme](https://tryhackme.com/p/stenslae)
 

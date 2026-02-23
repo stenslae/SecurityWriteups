@@ -76,6 +76,10 @@ OpenPLC integrates many languages into one space to enable controllers to be pro
 
 Made by IBM, Node-RED is Scratch coding for System Engineers. It just uses block coding for automation application on controllers that support it. On the networking layers, the controllers will use protocols like Modbus or MQTT.
 
+### Open Platform Communications (OPC)
+
+OPC UA is an application-based protocol that is integrated with transport protocols. Modern PLCs have OPC UA servers built in, and OPC UA also has a publish/subsribe or client-server architecture. It is more secure than Modbus or FINS, as it uses X.509 certificates, which both the client and server must trust in order to communicate. 
+
 ## Machine to Machine
 
 ### MQTT (Message Queuing Telemetry Transport)
@@ -102,18 +106,6 @@ Constrained Application Protocol (CoAP) uses UDP on IP for constrained devices. 
 
 Open Mobile Alliance developed LwM2M for IoT device management. It is built on CoAP typically, but can support other transfer prtocols. It manages security credentials, firmware updates, and connectivity management. It can integrate DTLS or TLS, depending on what transfer protocol is integrated with LwM2M.
 
-### Open Platform Communications (OPC)
-
-
-
-### Profinet
-
-
-
-### Modbus
-
-
-
 ### Omron FINS Host Link
 
 Omron FINS Host Link uses the binary FINS protocol over TCP/IP and the Host Link protcol that uses ASCII-serial. Host link is master slave based, like any normal serial protcol, and is used to send commands to a PLC from an RTU. But FINS is unique, as it's Factory Interface Network Service, provided by OMRON. This allows PLCs to exchange data over TCP port 9600. It's functionally similar to modbus, where registers have bits for reading/writing, couting values, and sending data.
@@ -127,6 +119,14 @@ BACnet is a protocol for Building Automation and Control (BAC) networks and is t
 ### Fieldbuses
 
 Fieldbus is a standardized (IEC 61158) distributed communication network that is designed for real time systems, often utilizing ethernet. Fieldbus relies on connecting multiple devices in often a daisy-chain configuration which collates all devices on a primary bus to the master. IEC 61158 is the standardization of Fieldbus. It outlines required commands and reporting, along with the control scheme. This standardization accounts for a majority of modern Fieldbus protocols. Popular fieldbus protocols are used in Modbus, Profibus, CANbus, and BACnet. 
+
+### Modbus RTU/TCP
+
+Modbus is a communication protocol developed by Schneider Electronic, with inputs and registers (16 bit) and coils (1 bit). Modbus RTU is a serial master/slave connection, and Modbus TCP is on port 502 as a client/server model. Modbus RTU uses typically RS-485 for the physical connection as a linear bus connection. In Modbus TCP, the server is a device and the client is a SCADA system/RTU.
+
+### Profinet
+
+Profinet uses physical connections, primairly as the IEC 61158-2 as a fieldbus. This configuration allows for the DP application layer protocol.
 
 ### CANBus
 

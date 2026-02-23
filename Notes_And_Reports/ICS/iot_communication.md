@@ -7,11 +7,11 @@
 
 - [IoT Protocol Stack](#protocol-stack)
 - [Communication Ranges](#communication-ranges)
-- [Controller Specific](#controller-specific)
+- [Controller Protocols](#controller-protocols)
 - [Machine to Machine](#machine-to-machine)
-- [Fieldbuses](#fieldbuses)
-- [PAN RF Protocols](#pan-rf-protocols)
-- [WAN RF Protocols](#wan-rf-protocols)
+- [Wired Connections](#wired-connections)
+- [PAN RF](#pan-rf)
+- [WAN RF](#wan-rf)
 - [Routing Protocols](#routing-protocols)
 - [Middleware](#middleware)
 - [Field Energy Transfer](#field-energy-transfer)
@@ -28,7 +28,7 @@ Typically, IoT protocols can be an TCP/IP stack extension, but the common layers
 
 To further dive into this, there's a IoT version of the OSI model stack accoring to RF Wireless World. It's a bit of a stretch, but still a cool model to talk about, and I'm naming it the IoTSI (Internet of Things System Interconnection) model for the purposes of these notes.
 
-1. **Physical Layer** - The communication between the real world and sensors. This uses magic sensor technology that boils down to fancy multimeters.
+1. **Physical Layer** - The communication between the real world and sensors. This uses magic sensor technology.
 2. **Processing Layer** - How data gets processed. Microcontrollers and what not.
 3. **Hardware Interface Layer** - How hardware talks to each other. CAN, SCI, SPI, I2C, and all that fun stuff. It's the 1s and 0s put onto voltage lines.
 4. **RF Layer** - This is where we drop the wires and go into zapping electromagnetic signals across different ranges. This uses Wi-Fi, Bluetooth, Zigbee, Z-Wave, NFC, RFID, GSM, 5G, etc.
@@ -62,30 +62,38 @@ Wide area networks cover large ranges and are built either by Internet Service P
 
 Internet Area Networks are rising in popularity due to the increase of the virtualization of internet services. This means that services such as emails don't solely rely on endpoints, but instead occur via endpoints connecting to sessions controlled by the cloud. Large scale data centers manage the services, while endpoints simply connect to cloud using a broadband connection. IAN is a type of WAN, just talks about the cloud integration.
 
-## Controller Specific
+## Controller Protocols
 
-### S7comm (Siemens)
+### S7 (Siemens)
 
-
+Siemens is at it again with their own special protocol for SIMATIC S7 PLCs. It runs on TCP/IP on port 102, originally for STEP 7, but typically can integrate with SCADA/MES systems. Snap7 is an open-source library that implements S7, and Wireshark even has dedicated packets for S7. Packets are ACK/NACKed, data can be read or written, and JOB requests are also sent to tell the S7 devices what to do. ROSCTR stores any errors.
 
 ### OpenPLC
 
-
+OpenPLC integrates many languages into one space to enable controllers to be programmed for processes. OpenPLC has built in servers for things like Modbus and DNP3. It uses Ladder Diagrams and Functional Block Diagrams to let engineers prototype automation systems.
 
 ### Node-RED
 
+Made by IBM, Node-RED is Scratch coding for System Engineers. It just uses block coding for automation application on controllers that support it. On the lower layers of networking, the controllers will use Modbus/MQTT.
 
+## Machine to Machine
 
 ### Omron TCP/RTU
 
 
 
-## Machine to Machine
-
 ### MQTT (Message Queuing Telemetry Transport)
 
 
+### SNMP
 
+
+### IEC 60870-5-104
+
+
+### DNP3
+
+DNP3 defines a set of communication protocols used in process automation systems, and typically integrates with operational technology such as remote terminal units (RTUs) and programmable logic controllers (PLCs). The goal of DNP3 is to collate all communication into the central human-machine interface/supervisory control and data acquisition (HMI/SCADA) node. 
 
 ### WebSocket
 
@@ -109,21 +117,6 @@ Internet Area Networks are rising in popularity due to the increase of the virtu
 ### Open Platform Communications (OPC)
 
 
-### DNP3
-
-DNP3 defines a set of communication protocols used in process automation systems, and typically integrates with operational technology such as remote terminal units (RTUs) and programmable logic controllers (PLCs). The goal of DNP3 is to collate all communication into the central human-machine interface/supervisory control and data acquisition (HMI/SCADA) node. 
-
-## Fieldbuses
-
-Fieldbus is a standardized (IEC 61158) distributed communication network that is designed for real time systems, often utilizing ethernet. Fieldbus relies on connecting multiple devices in often a daisy-chain configuration which collates all devices on a primary bus to the master. IEC 61158 is the standardization of Fieldbus. It outlines required commands and reporting, along with the control scheme. This standardization accounts for a majority of modern Fieldbus protocols. Popular fieldbus protocols include Modbus, Profibus, CANbus, and BACnet [7]. 
-
-### CANBus
-
-Controller Area Network (CAN) Bus is used for communication between electronic control units in vehicles. It is a brodcasting message protocol that is intended to reduce electrical wiring complexity as communication is multiplexed and relies on differential signals. 
-
-### BACnet
-
-BACnet is a protocol for Building Automation and Control (BAC) networks and is typically used for fire detection, lighting, and HVAC systems.
 
 ### Profinet
 
@@ -133,15 +126,29 @@ BACnet is a protocol for Building Automation and Control (BAC) networks and is t
 
 
 
-### HART (Highway Addressable Remote Transducer)
+### BACnet
 
+BACnet is a protocol for Building Automation and Control (BAC) networks and is typically used for fire detection, lighting, and HVAC systems. It is object oriented, defining analog and digital data types, and even has a logging object, and commands are focused on interfacing between sensors/actuators and controllers.
 
+## Wired Connections
+
+### Fieldbuses
+
+Fieldbus is a standardized (IEC 61158) distributed communication network that is designed for real time systems, often utilizing ethernet. Fieldbus relies on connecting multiple devices in often a daisy-chain configuration which collates all devices on a primary bus to the master. IEC 61158 is the standardization of Fieldbus. It outlines required commands and reporting, along with the control scheme. This standardization accounts for a majority of modern Fieldbus protocols. Popular fieldbus protocols are used in Modbus, Profibus, CANbus, and BACnet. 
+
+### CANBus
+
+Controller Area Network (CAN) Bus is used for communication between electronic control units in vehicles. It is a brodcasting message protocol that is intended to reduce electrical wiring complexity as communication is multiplexed and relies on differential signals. 
 
 ### EtherCAT
 
 EtherCAT (Ethernet for Control Automation Technology) leverages an IEC 61158 Fieldbus system over Ethernet in order to enable real-time computing in industrial applications. Synchronization is expected to be precise and low jitter with less than 1us of clock speed. In this system, an EtherCAT master has a large amount of slaves daisy chained together, and the master communicates with these slaves in a loop style. Typically, the master will have multiple ports connected to the slaves, enabling network redundancy, and have loopback switches that close on failure of the primary communication line, which connects a redundant communication line.
 
-## PAN RF Protocols
+### HART (Highway Addressable Remote Transducer)
+
+This one's neat. HART is a hardware point-to-point communication that uses analog and digital signals to communicate (at the same time!),leveraging 4-20 mA current loops on analog instruments and analog only host systems. HART defines the application of Bell 202, and is in multi-drop or point to point connections. Point to point is when the 4-20 mA loop current and digital signals are overlaid, and the controller is capable of processing both signaling protocols. Multi-drop fixes the loop current to 4 mA, and more instruments are able to be connected and communicate digitally with unique addresses.
+
+## PAN RF
 
 ### Bluetooth & BLE
 
@@ -149,13 +156,13 @@ Bluetooth transmits data over short ranges in personal area networks. It uses th
 
 ### Z-Wave
 
-Z-Wave is a wireless ad hock network that operates in the sub-GHz band, around 900 MHz. It does not interfere with Wi-Fi and Bluetooth and is low power and low-data rate. It is capable of mesh networking, where Z-Wave devices can repeat signals up to four hops to extend the network range, with up to 232 devices, and each device has a range of 70-100 meters. Z-Wave transmits with AES-128 encryption, and is typically used in smart homes.  
+Z-Wave is a wireless ad hock network that operates in the sub-GHz band, around 900 MHz. It is low power and low-data rate. It is capable of mesh networking, where Z-Wave devices can repeat signals up to four hops to extend the network range, with up to 232 devices, and each device has a range of 70-100 meters. Z-Wave transmits with AES-128 encryption, and is typically used in smart homes. There is also a version of Z-Wave with an extended range that can reach miles.
 
 ### ZigBee
 
 Zigbee is a low power communication wireless ad hock network. Zigbee defines the device management and application protocol, while IEEE 802.15.4 is the physical and link layer. It is a wireless mesh network that uses AES-128 encryption. IEEE 802.15.4 operates primarily in the 2.4 GHz band. It's used in smart homes usually, it is pretty much the same as Z-Wave but not proprietary.
 
-## WAN RF Protocols
+## WAN RF
 
 ### 6LoWPAN
 
@@ -189,11 +196,7 @@ To go back to the IoTSI model, layer 6 and 7 are possible without middleware, bu
 
 Electromagnetic wave-icles move, which means they have energy. We generate a ton of these regularly, such as ARP broadcasts over Wi-Fi, or even just sending signals themselves. Field energy transfer asks can we absorb electromagnetic signals and use its energy? The answer is yes!
 
-### Short Field Energy Transfer
-
 Short field energy transfer famously occurs in Radio frequency identification (RFID). RFID tags uses a small radio transmitter and receiver, and when in close proximity to an electromagnetic interrogation pulse, it will be powered and transmit data. The interrogating device typically holds a databased value in order to cross-reference of the data sent by the tag. This allows for supply traceability and identity verification.
-
-### Long Field Energy Transfer
 
 When antennas receive a signal, a voltage is generated. Bursts of brodcasts from routers generates enough voltage for a bit under 300mV inconsistently. But, a feature known as poWi-Fi can be used, since routers can simultaneously broadcast across three non-overlapping channels, multiple channels can be used to continually broadcast and remotely power small battery-free devices within 5 meters.
 

@@ -19,7 +19,7 @@
 
 ## Protocol Stack
 
-Typically, IoT protocols can be an TCP/IP stack extension, but the common layers of the OSCI model that IoT protocols work over are as follows:
+Typically, IoT protocols can be an TCP/IP stack extension, but the common layers of the OSI model that IoT protocols work over are as follows:
 
 - **Application Layer** - IoT applications, device management, etc.
 - **Transport Layer** - Typically UDP and DTLS
@@ -94,21 +94,9 @@ Made by IBM, Node-RED is Scratch coding for System Engineers. It just uses block
 
 DNP3 defines a set of communication protocols used in process automation systems, and typically integrates with operational technology such as remote terminal units (RTUs) and programmable logic controllers (PLCs). The goal of DNP3 is to collate all communication into the central human-machine interface/supervisory control and data acquisition (HMI/SCADA) node. 
 
-### WebSocket
-
-
-
 ### CoAP
 
-
-
-### AMQP (Advanced Message Queuing Protocol)
-
-
-
-### RPC (Remote Procedure Call)
-
-
+Constrained Application Protocol (CoAP) uses UDP on IP for constrained devices. These devices that work best with CoAP are low-power or in lossy networks. It is made to be easily translated into HTTP as it is based off of the REST model. CoAP is available on most devices that support UDP, and has the ability to integrate DTLS.
 
 ### LwM2M (Lightweight Machine-to-Machine)
 

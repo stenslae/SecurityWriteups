@@ -92,11 +92,11 @@ IEC 60870-5-104 is a protocol commonly used in telecontrol and SCADA. It allows 
 
 ### DNP3
 
-DNP3 defines how RTUs and PLCs talk to SCADA. It exchanges statuses, events, and control between masters and distributed devices for distributed control systems. Small time-critical messages are required to be transmitted in the correct sequence with this protocol, using CRCs and retries. It can funciton as a master-slave, peer-to-peer, or even multiple masters, and can allow for thousands of devices to be connected. In this protcol, there is a supervisory node known as the master station that initiates commands and collects data, and outstations that send reports or respond to master requests, and the physical links in devices. Polled and quiescent operation is allowed to help conserve bandwidth where needed.
+DNP3 uses port 20000 and defines how RTUs and PLCs talk to SCADA. It exchanges statuses, events, and control between masters and distributed devices for distributed control systems. Small time-critical messages are required to be transmitted in the correct sequence with this protocol, using CRCs and retries. It can funciton as a master-slave, peer-to-peer, or even multiple masters, and can allow for thousands of devices to be connected. In this protcol, there is a supervisory node known as the master station that initiates commands and collects data, and outstations that send reports or respond to master requests, and the physical links in devices. Polled and quiescent operation is allowed to help conserve bandwidth where needed.
 
 ### CoAP
 
-Constrained Application Protocol (CoAP) uses UDP on IP for constrained devices. These devices that work best with CoAP are low-power or in lossy networks. It is made to be easily translated into HTTP as it is based off of the REST model. CoAP is available on most devices that support UDP, and has the ability to integrate DTLS.
+Constrained Application Protocol (CoAP) uses UDP on IP for constrained devices. These devices that work best with CoAP are low-power or in lossy networks. It is made to be easily translated into HTTP as it is based off of the REST model. CoAP is available on most devices that support UDP, and has the ability to integrate DTLS. CoAP uses UDP port 5683, or port 5684 for DTLS CoAP.
 
 ### LwM2M (Lightweight Machine-to-Machine)
 
@@ -120,7 +120,7 @@ Omron FINS Host Link uses the binary FINS protocol over TCP/IP and the Host Link
 
 ### BACnet
 
-BACnet is a protocol for Building Automation and Control (BAC) networks and is typically used for fire detection, lighting, and HVAC systems. It is object oriented, defining analog and digital data types, and even has a logging object, and commands are focused on interfacing between sensors/actuators and controllers.
+BACnet is a protocol for Building Automation and Control (BAC) networks and is typically used for fire detection, lighting, and HVAC systems. It is object oriented, defining analog and digital data types, and even has a logging object, and commands are focused on interfacing between sensors/actuators and controllers. BACnet occurs over port 47808 for UDP.
 
 ## Wired Connections
 
@@ -130,7 +130,7 @@ Fieldbus is a standardized (IEC 61158) distributed communication network that is
 
 ### CANBus
 
-Controller Area Network (CAN) Bus is used for communication between electronic control units in vehicles. It is a brodcasting message protocol that is intended to reduce electrical wiring complexity as communication is multiplexed and relies on differential signals. 
+Controller Area Network (CAN) Bus is used for communication between electronic control units in vehicles. It is a brodcasting message protocol that is intended to reduce electrical wiring complexity as communication is multiplexed and relies on differential signals.
 
 ### EtherCAT
 

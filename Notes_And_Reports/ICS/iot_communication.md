@@ -74,21 +74,20 @@ OpenPLC integrates many languages into one space to enable controllers to be pro
 
 ### Node-RED
 
-Made by IBM, Node-RED is Scratch coding for System Engineers. It just uses block coding for automation application on controllers that support it. On the lower layers of networking, the controllers will use Modbus/MQTT.
+Made by IBM, Node-RED is Scratch coding for System Engineers. It just uses block coding for automation application on controllers that support it. On the networking layers, the controllers will use protocols liek Modbus or MQTT.
 
 ## Machine to Machine
 
-### Omron TCP/RTU
-
-
-
 ### MQTT (Message Queuing Telemetry Transport)
+
 
 
 ### SNMP
 
 
+
 ### IEC 60870-5-104
+
 
 
 ### DNP3
@@ -100,6 +99,7 @@ DNP3 defines a set of communication protocols used in process automation systems
 
 
 ### CoAP
+
 
 
 ### AMQP (Advanced Message Queuing Protocol)
@@ -126,6 +126,10 @@ DNP3 defines a set of communication protocols used in process automation systems
 
 
 
+### Omron FINS Host Link
+
+Omron FINS Host Link uses the binary FINS protocol over TCP/IP and the Host Link protcol that uses ASCII-serial. Host link is master slave based, like any normal serial protcol, and is used to send commands to a PLC from an RTU. But FINS is unique, as it's Factory Interface Network Service, provided by OMRON. This allows PLCs to exchange data over TCP port 9600. It's functionally similar to modbus, where registers have bits for reading/writing, couting values, and sending data.
+
 ### BACnet
 
 BACnet is a protocol for Building Automation and Control (BAC) networks and is typically used for fire detection, lighting, and HVAC systems. It is object oriented, defining analog and digital data types, and even has a logging object, and commands are focused on interfacing between sensors/actuators and controllers.
@@ -146,7 +150,7 @@ EtherCAT (Ethernet for Control Automation Technology) leverages an IEC 61158 Fie
 
 ### HART (Highway Addressable Remote Transducer)
 
-This one's neat. HART is a hardware point-to-point communication that uses analog and digital signals to communicate (at the same time!),leveraging 4-20 mA current loops on analog instruments and analog only host systems. HART defines the application of Bell 202, and is in multi-drop or point to point connections. Point to point is when the 4-20 mA loop current and digital signals are overlaid, and the controller is capable of processing both signaling protocols. Multi-drop fixes the loop current to 4 mA, and more instruments are able to be connected and communicate digitally with unique addresses.
+This one's neat. HART is a hardware point-to-point communication that uses analog and digital signals to communicate (at the same time!), leveraging 4-20 mA current loops on analog instruments and analog only host systems. HART defines the application of Bell 202, and is in multi-drop or point to point connections. Point to point is when the 4-20 mA loop current and digital signals are overlaid, and the controller is capable of processing both signaling protocols. Multi-drop fixes the loop current to 4 mA, and more instruments are able to be connected and communicate digitally with unique addresses.
 
 ## PAN RF
 

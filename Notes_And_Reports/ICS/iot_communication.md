@@ -84,11 +84,11 @@ Made by IBM, Node-RED is Scratch coding for System Engineers. It just uses block
 
 ### SNMP
 
-
+SNMP runs on top of UDP, port 161 for queries and 162 for traps. There are managers and agents (master/slave configuration). Data is organized in the managment information base, and there are polling/active queries and traps, which are asynchronous notificaitons. SNMP is used in industrial equipment and networking equipment. SNMP also has different security features in each version. Version 1 & 2C uses plaintext strings, while Version 3 uses authentication and different layers of encryption. 
 
 ### IEC 60870-5-104
 
-
+IEC 60870-5-104 is a protocol commonly used in telecontrol and SCADA. It allows for real-time telementry and control between control centers and field devices, where control centers are clients and RTUs/IEDs are servers. IEC 104 occurs over port 2404. In this protocol, each device gets a unique common address and data from field devices is held at information object addresses. 
 
 ### DNP3
 

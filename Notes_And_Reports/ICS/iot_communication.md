@@ -80,7 +80,7 @@ Made by IBM, Node-RED is Scratch coding for System Engineers. It just uses block
 
 ### MQTT (Message Queuing Telemetry Transport)
 
-
+MQTT is the legend itself. It uses a publish/subscribe model, where messages are sent to a central broker, and systems subscribe to the topics they need. This allows for easy integration between IT and OT, and reduces the bandwidth needed. It runs on top of TCP/IP, and can integrate TLS. Default MQTT is on port 1883, while encrypted MQTT is on port 8883. 
 
 ### SNMP
 
@@ -92,7 +92,7 @@ IEC 60870-5-104 is a protocol commonly used in telecontrol and SCADA. It allows 
 
 ### DNP3
 
-DNP3 defines a set of communication protocols used in process automation systems, and typically integrates with operational technology such as remote terminal units (RTUs) and programmable logic controllers (PLCs). The goal of DNP3 is to collate all communication into the central human-machine interface/supervisory control and data acquisition (HMI/SCADA) node. 
+DNP3 defines how RTUs and PLCs talk to SCADA. It exchanges statuses, events, and control between masters and distributed devices for distributed control systems. Small time-critical messages are required to be transmitted in the correct sequence with this protocol, using CRCs and retries. It can funciton as a master-slave, peer-to-peer, or even multiple masters, and can allow for thousands of devices to be connected. In this protcol, there is a supervisory node known as the master station that initiates commands and collects data, and outstations that send reports or respond to master requests, and the physical links in devices. Polled and quiescent operation is allowed to help conserve bandwidth where needed.
 
 ### CoAP
 

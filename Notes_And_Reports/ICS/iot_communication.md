@@ -74,7 +74,7 @@ OpenPLC integrates many languages into one space to enable controllers to be pro
 
 ### Node-RED
 
-Made by IBM, Node-RED is Scratch coding for System Engineers. It just uses block coding for automation application on controllers that support it. On the networking layers, the controllers will use protocols liek Modbus or MQTT.
+Made by IBM, Node-RED is Scratch coding for System Engineers. It just uses block coding for automation application on controllers that support it. On the networking layers, the controllers will use protocols like Modbus or MQTT.
 
 ## Machine to Machine
 
@@ -100,7 +100,7 @@ Constrained Application Protocol (CoAP) uses UDP on IP for constrained devices. 
 
 ### LwM2M (Lightweight Machine-to-Machine)
 
-
+Open Mobile Alliance developed LwM2M for IoT device management. It is built on CoAP typically, but can support other transfer prtocols. It manages security credentials, firmware updates, and connectivity management. It can integrate DTLS or TLS, depending on what transfer protocol is integrated with LwM2M.
 
 ### Open Platform Communications (OPC)
 
